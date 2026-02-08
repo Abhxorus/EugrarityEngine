@@ -1,35 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns:atg="http://atg.xbox.com" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-<ItemGroup>
-<Filter Include="Resource Files">
-<UniqueIdentifier>{8e114980-c1a3-4ada-ad7c-83caadf5daeb}</UniqueIdentifier>
-<Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
-</Filter>
-<Filter Include="DXUT">
-<UniqueIdentifier>{a43c5c25-0e86-4a20-b64a-883785ff74fd}</UniqueIdentifier>
-</Filter>
-<Filter Include="Shaders">
-<UniqueIdentifier>{2c3d4c8c-5d1a-459a-a05a-a4e4b608a44e}</UniqueIdentifier>
-<Extensions>fx;fxh;hlsl</Extensions>
-</Filter>
-</ItemGroup>
-<ItemGroup />
-<ItemGroup>
-      <ClCompile Include="EugrarityEngine.cpp" />
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{8e114980-c1a3-4ada-ad7c-83caadf5daeb}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+    <Filter Include="DXUT">
+      <UniqueIdentifier>{a43c5c25-0e86-4a20-b64a-883785ff74fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{2c3d4c8c-5d1a-459a-a05a-a4e4b608a44e}</UniqueIdentifier>
+      <Extensions>fx;fxh;hlsl</Extensions>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{bd5bfdb6-9e62-42ce-80cd-0bdd027e79b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{bfec4124-3a3a-4ffa-b6b1-c330dc38bbe2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
-<ItemGroup>
-      <None Include="EugrarityEngine.fx">
-<Filter>Shaders</Filter>
-</None>
+  <ItemGroup>
+    <ClCompile Include="EugrarityEngine.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Window.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Viewport.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Texture.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SwapChain.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ShaderProgram.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SamplerState.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RenderTargetView.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\InputLayout.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DeviceContext.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Device.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DepthStencilView.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Buffer.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BaseApp.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
-<ItemGroup>
-      <CLInclude Include="resource.h">
-<Filter>Resource Files</Filter>
-</CLInclude>
-      <ResourceCompile Include="EugrarityEngine.rc">
-<Filter>Resource Files</Filter>
-</ResourceCompile>
+  <ItemGroup>
+    <None Include="EugrarityEngine.fx">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
-<ItemGroup>
-</ItemGroup>
+  <ItemGroup>
+    <CLInclude Include="resource.h">
+      <Filter>Resource Files</Filter>
+    </CLInclude>
+    <ResourceCompile Include="EugrarityEngine.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+    <ClInclude Include="Include\Window.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Prerequisites.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Texture.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Device.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Resource.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\SwapChain.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\RenderTargetView.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\DeviceContext.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\DepthStencilView.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Viewport.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\InputLayout.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\MeshComponent.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Buffer.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\SamplerState.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ShaderProgram.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\BaseApp.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\stb_image.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
 </Project>

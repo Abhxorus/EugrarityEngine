@@ -5,39 +5,8 @@
 //
 // Copyright (c) Microsoft Corporation. All rights reserved.
 //--------------------------------------------------------------------------------------
-#include <windows.h>
-#include <d3d11.h>
-#include <d3dx11.h>
-#include <d3dcompiler.h>
-#include <xnamath.h>
-#include "resource.h"
-
-
-//--------------------------------------------------------------------------------------
-// Structures
-//--------------------------------------------------------------------------------------
-struct SimpleVertex
-{
-    XMFLOAT3 Pos;
-    XMFLOAT2 Tex;
-};
-
-struct CBNeverChanges
-{
-    XMMATRIX mView;
-};
-
-struct CBChangeOnResize
-{
-    XMMATRIX mProjection;
-};
-
-struct CBChangesEveryFrame
-{
-    XMMATRIX mWorld;
-    XMFLOAT4 vMeshColor;
-};
-
+#include "Prerequisites.h"
+#include "Window.h"
 
 //--------------------------------------------------------------------------------------
 // Global Variables
@@ -134,7 +103,7 @@ HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow )
     wcex.hCursor = LoadCursor( NULL, IDC_ARROW );
     wcex.hbrBackground = ( HBRUSH )( COLOR_WINDOW + 1 );
     wcex.lpszMenuName = NULL;
-    wcex.lpszClassName = L"TutorialWindowClass";
+    wcex.lpszClassName = "TutorialWindowClass";
     wcex.hIconSm = LoadIcon( wcex.hInstance, ( LPCTSTR )IDI_TUTORIAL1 );
     if( !RegisterClassEx( &wcex ) )
         return E_FAIL;
@@ -143,7 +112,7 @@ HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow )
     g_hInst = hInstance;
     RECT rc = { 0, 0, 640, 480 };
     AdjustWindowRect( &rc, WS_OVERLAPPEDWINDOW, FALSE );
-    g_hWnd = CreateWindow( L"TutorialWindowClass", L"EugrarityEngine", WS_OVERLAPPEDWINDOW,
+    g_hWnd = CreateWindow( "TutorialWindowClass", "EugrarityEngine", WS_OVERLAPPEDWINDOW,
                            CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left, rc.bottom - rc.top, NULL, NULL, hInstance,
                            NULL );
     if( !g_hWnd )
@@ -158,7 +127,7 @@ HRESULT InitWindow( HINSTANCE hInstance, int nCmdShow )
 //--------------------------------------------------------------------------------------
 // Helper for compiling shaders with D3DX11
 //--------------------------------------------------------------------------------------
-HRESULT CompileShaderFromFile( WCHAR* szFileName, LPCSTR szEntryPoint, LPCSTR szShaderModel, ID3DBlob** ppBlobOut )
+HRESULT CompileShaderFromFile( char* szFileName, LPCSTR szEntryPoint, LPCSTR szShaderModel, ID3DBlob** ppBlobOut )
 {
     HRESULT hr = S_OK;
 
@@ -298,11 +267,11 @@ HRESULT InitDevice()
 
     // Compile the vertex shader
     ID3DBlob* pVSBlob = NULL;
-    hr = CompileShaderFromFile( L"EugrarityEngine.fx", "VS", "vs_4_0", &pVSBlob );
+    hr = CompileShaderFromFile( "EugrarityEngine.fx", "VS", "vs_4_0", &pVSBlob );
     if( FAILED( hr ) )
     {
         MessageBox( NULL,
-                    L"The FX file cannot be compiled.  Please run this executable from the directory that contains the FX file.", L"Error", MB_OK );
+                    "The FX file cannot be compiled.  Please run this executable from the directory that contains the FX file.", "Error", MB_OK );
         return hr;
     }
 
@@ -334,11 +303,11 @@ HRESULT InitDevice()
 
     // Compile the pixel shader
     ID3DBlob* pPSBlob = NULL;
-    hr = CompileShaderFromFile( L"EugrarityEngine.fx", "PS", "ps_4_0", &pPSBlob );
+    hr = CompileShaderFromFile( "EugrarityEngine.fx", "PS", "ps_4_0", &pPSBlob );
     if( FAILED( hr ) )
     {
         MessageBox( NULL,
-                    L"The FX file cannot be compiled.  Please run this executable from the directory that contains the FX file.", L"Error", MB_OK );
+                    "The FX file cannot be compiled.  Please run this executable from the directory that contains the FX file.", "Error", MB_OK );
         return hr;
     }
 
@@ -458,7 +427,7 @@ HRESULT InitDevice()
         return hr;
 
     // Load the Texture
-    hr = D3DX11CreateShaderResourceViewFromFile( g_pd3dDevice, L"seafloor.dds", NULL, NULL, &g_pTextureRV, NULL );
+    hr = D3DX11CreateShaderResourceViewFromFile( g_pd3dDevice, "seafloor.dds", NULL, NULL, &g_pTextureRV, NULL );
     if( FAILED( hr ) )
         return hr;
 
