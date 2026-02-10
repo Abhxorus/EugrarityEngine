@@ -18,6 +18,39 @@
     <Filter Include="Source">
       <UniqueIdentifier>{bfec4124-3a3a-4ffa-b6b1-c330dc38bbe2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Include\ECS">
+      <UniqueIdentifier>{feb7eb95-26dc-4675-873c-ddb0ec34abd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\EngineUtilities">
+      <UniqueIdentifier>{89200855-87e5-4a80-a999-114416f4228f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\EngineUtilities\Vectors">
+      <UniqueIdentifier>{2cf83cbd-5f7a-455b-a87b-559eeb59cb07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\EngineUtilities\Utilities">
+      <UniqueIdentifier>{00571f8a-f11e-42dd-b5a7-a4de6f8e2892}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\EngineUtilities\Structures">
+      <UniqueIdentifier>{c9bae9b0-3347-499f-bbeb-7128c9ab1831}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\EngineUtilities\Memory">
+      <UniqueIdentifier>{2ffacefe-740f-41de-a9af-ce374d0377ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\EngineUtilities\Matrix">
+      <UniqueIdentifier>{2ac1b3ae-4fb4-43c9-9a6f-eb1c59fcf4b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\SceneGraph">
+      <UniqueIdentifier>{5c23a8fc-19ef-4578-8674-c198d5ab498c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\SceneGraph">
+      <UniqueIdentifier>{3f2560dd-8917-46e4-8211-76f4bc2ab9fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\ECS">
+      <UniqueIdentifier>{e3ae8493-a7f7-40e0-ae44-d368623922d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\EngineUtilities\GUI">
+      <UniqueIdentifier>{b29dde24-684a-40ab-b260-1e2d655ce44b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EugrarityEngine.cpp">
@@ -61,6 +94,15 @@
     </ClCompile>
     <ClCompile Include="Source\BaseApp.cpp">
       <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Camera.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneGraph\SceneGraph.cpp">
+      <Filter>Source\SceneGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ECS\Actor.cpp">
+      <Filter>Source\ECS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +166,81 @@
       <Filter>Include</Filter>
     </ClInclude>
     <ClInclude Include="Include\stb_image.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ECS\Component.h">
+      <Filter>Include\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\EngineUtilities\Vectors\Quaternion.h">
+      <Filter>Include\EngineUtilities\Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\EngineUtilities\Utilities\EngineMath.h">
+      <Filter>Include\EngineUtilities\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\EngineUtilities\Utilities\Camera.h">
+      <Filter>Include\EngineUtilities\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\EngineUtilities\Vectors\Vector2.h">
+      <Filter>Include\EngineUtilities\Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\EngineUtilities\Vectors\Vector3.h">
+      <Filter>Include\EngineUtilities\Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\EngineUtilities\Vectors\Vector4.h">
+      <Filter>Include\EngineUtilities\Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\EngineUtilities\Structures\TArray.h">
+      <Filter>Include\EngineUtilities\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\EngineUtilities\Structures\TMap.h">
+      <Filter>Include\EngineUtilities\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\EngineUtilities\Structures\TPair.h">
+      <Filter>Include\EngineUtilities\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\EngineUtilities\Structures\TSet.h">
+      <Filter>Include\EngineUtilities\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\EngineUtilities\Memory\TSharedPointer.h">
+      <Filter>Include\EngineUtilities\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\EngineUtilities\Memory\TStaticPtr.h">
+      <Filter>Include\EngineUtilities\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\EngineUtilities\Memory\TWeakPointer.h">
+      <Filter>Include\EngineUtilities\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\EngineUtilities\Memory\TUniquePtr.h">
+      <Filter>Include\EngineUtilities\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\EngineUtilities\Matrix\Matrix2x2.h">
+      <Filter>Include\EngineUtilities\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\EngineUtilities\Matrix\Matrix3x3.h">
+      <Filter>Include\EngineUtilities\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\EngineUtilities\Matrix\Matrix4x4.h">
+      <Filter>Include\EngineUtilities\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ECS\Entity.h">
+      <Filter>Include\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ECS\Transform.h">
+      <Filter>Include\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ECS\Actor.h">
+      <Filter>Include\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\SceneGraph\HierarchyComponent.h">
+      <Filter>Include\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\SceneGraph\SceneGraph.h">
+      <Filter>Include\SceneGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\IResource.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ResourceManager.h">
       <Filter>Include</Filter>
     </ClInclude>
   </ItemGroup>

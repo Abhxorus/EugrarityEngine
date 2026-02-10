@@ -6,6 +6,10 @@
 #include <windows.h>
 #include <xnamath.h>
 #include <thread>
+#include <memory>
+#include <unordered_map>
+#include <type_traits>
+#include <array>
 
 // Librerias DirectX
 #include <d3d11.h>
@@ -15,6 +19,12 @@
 #include "resource.h"
 
 // Third Party Libraries
+#include "EngineUtilities/Vectors/Vector2.h"
+#include "EngineUtilities/Vectors/Vector3.h"
+#include "EngineUtilities\Memory\TSharedPointer.h"
+#include "EngineUtilities\Memory\TWeakPointer.h"
+#include "EngineUtilities\Memory\TStaticPtr.h"
+#include "EngineUtilities\Memory\TUniquePtr.h"
 
 // MACROS
 #define SAFE_RELEASE(x) if(x != nullptr) x->Release(); x = nullptr;
@@ -72,4 +82,17 @@ enum ExtensionType {
 enum ShaderType {
     VERTEX_SHADER = 0,
     PIXEL_SHADER = 1
+};
+
+/**
+ * @enum ComponentType
+ * @brief Tipos de componentes disponibles en el juego.
+ */
+enum
+    ComponentType {
+    NONE = 0,     ///< Tipo de componente no especificado.
+    TRANSFORM = 1,///< Componente de transformación.
+    MESH = 2,     ///< Componente de malla.
+    MATERIAL = 3,  ///< Componente de material.
+    HIERARCHY = 4 ///< Componente de jerarquía.
 };
