@@ -1,6 +1,6 @@
 #pragma once
 #include "Prerequisites.h"
-//#include "ECS\Component.h"
+#include "ECS\Component.h"
 class DeviceContext;
 /**
  * @class MeshComponent
@@ -15,7 +15,7 @@ class DeviceContext;
  * - Contadores de vértices e índices.
  */
 class
-	MeshComponent /*: public Component*/ {
+	MeshComponent : public Component {
 public:
 	/**
 	 * @brief Constructor por defecto.
@@ -23,7 +23,7 @@ public:
 	 * Inicializa el componente de malla con cero vértices e índices
 	 * y lo registra como tipo @c MESH en el sistema ECS.
 	 */
-	MeshComponent() : m_numVertex(0), m_numIndex(0)/*, Component(ComponentType::MESH)*/ {}
+	MeshComponent() : m_numVertex(0), m_numIndex(0), Component(ComponentType::MESH) {}
 
 	/**
 	 * @brief Destructor virtual por defecto.
@@ -38,7 +38,7 @@ public:
 	 * Puede usarse para reservar memoria o cargar datos en mallas derivadas.
 	 */
 	void
-		init() /*override {}*/;
+		init() override {};
 
 	/**
 	 * @brief Actualiza la malla.
@@ -49,7 +49,7 @@ public:
 	 * @param deltaTime Tiempo transcurrido desde la última actualización.
 	 */
 	void
-		update(float deltaTime)/* override {}*/;
+		update(float deltaTime) override {};
 
 	/**
 	 * @brief Renderiza la malla.
@@ -61,7 +61,7 @@ public:
 	 * @param deviceContext Contexto del dispositivo para operaciones gráficas.
 	 */
 	void
-		render(DeviceContext& deviceContext) /*override {}*/;
+		render(DeviceContext& deviceContext) override {};
 
 	/**
 	 * @brief Libera los recursos asociados al componente de malla.
@@ -70,7 +70,7 @@ public:
 	 * En implementaciones más complejas, puede liberar buffers de GPU.
 	 */
 	void
-		destroy() /*override {}*/;
+		destroy() override {};
 
 public:
 	/**

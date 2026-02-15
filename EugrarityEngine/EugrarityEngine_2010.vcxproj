@@ -161,7 +161,7 @@
       <FloatingPointModel>Fast</FloatingPointModel>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>./Include/;DXUT\Core;DXUT\Optional;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\imgui-docking\backends;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\imgui-docking;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\ImGuizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./Include/;DXUT\Core;DXUT\Optional;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\imgui-docking\backends;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\imgui-docking;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\ImGuizmo;C:\Program Files\Autodesk\FBX\FBX SDK\2020.3.9\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>WIN32;_DEBUG;DEBUG;PROFILE;_WINDOWS;D3DXFX_LARGEADDRESS_HANDLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
@@ -181,7 +181,7 @@
       <TargetMachine>MachineX86</TargetMachine>
       <UACExecutionLevel>AsInvoker</UACExecutionLevel>
       <DelayLoadDLLs>%(DelayLoadDLLs)</DelayLoadDLLs>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;C:\Program Files\Autodesk\FBX\FBX SDK\2020.3.9\lib\x64\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ImportLibrary>$(SolutionDir)/lib/$(PlatformTarget)/$(TargetName).lib</ImportLibrary>
     </Link>
     <Manifest>
@@ -205,7 +205,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FloatingPointModel>Fast</FloatingPointModel>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>./Include/;DXUT\Core;DXUT\Optional;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\imgui-docking\backends;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\imgui-docking;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\ImGuizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./Include/;DXUT\Core;DXUT\Optional;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\imgui-docking\backends;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\imgui-docking;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\ImGuizmo;C:\Program Files\Autodesk\FBX\FBX SDK\2020.3.9\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>WIN32;_DEBUG;DEBUG;PROFILE;_WINDOWS;D3DXFX_LARGEADDRESS_HANDLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -224,7 +224,7 @@
       <TargetMachine>MachineX64</TargetMachine>
       <UACExecutionLevel>AsInvoker</UACExecutionLevel>
       <DelayLoadDLLs>%(DelayLoadDLLs)</DelayLoadDLLs>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;C:\Program Files\Autodesk\FBX\FBX SDK\2020.3.9\lib\x64\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ImportLibrary>$(SolutionDir)/lib/$(PlatformTarget)/$(TargetName).lib</ImportLibrary>
     </Link>
     <Manifest>
@@ -250,7 +250,7 @@
       <FloatingPointModel>Fast</FloatingPointModel>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>./Include/;DXUT\Core;DXUT\Optional;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\imgui-docking\backends;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\imgui-docking;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\ImGuizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./Include/;DXUT\Core;DXUT\Optional;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\imgui-docking\backends;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\imgui-docking;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\ImGuizmo;C:\Program Files\Autodesk\FBX\FBX SDK\2020.3.9\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;D3DXFX_LARGEADDRESS_HANDLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -270,7 +270,7 @@
       <TargetMachine>MachineX86</TargetMachine>
       <UACExecutionLevel>AsInvoker</UACExecutionLevel>
       <DelayLoadDLLs>%(DelayLoadDLLs)</DelayLoadDLLs>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;C:\Program Files\Autodesk\FBX\FBX SDK\2020.3.9\lib\x64\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ImportLibrary>$(SolutionDir)/lib/$(PlatformTarget)/$(TargetName).lib</ImportLibrary>
     </Link>
     <Manifest>
@@ -295,7 +295,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FloatingPointModel>Fast</FloatingPointModel>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>./Include/;DXUT\Core;DXUT\Optional;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\imgui-docking\backends;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\imgui-docking;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\ImGuizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./Include/;DXUT\Core;DXUT\Optional;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\imgui-docking\backends;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\imgui-docking;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\ImGuizmo;C:\Program Files\Autodesk\FBX\FBX SDK\2020.3.9\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;D3DXFX_LARGEADDRESS_HANDLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -315,7 +315,7 @@
       <TargetMachine>MachineX64</TargetMachine>
       <UACExecutionLevel>AsInvoker</UACExecutionLevel>
       <DelayLoadDLLs>%(DelayLoadDLLs)</DelayLoadDLLs>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;C:\Program Files\Autodesk\FBX\FBX SDK\2020.3.9\lib\x64\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ImportLibrary>$(SolutionDir)/lib/$(PlatformTarget)/$(TargetName).lib</ImportLibrary>
     </Link>
     <Manifest>
@@ -341,7 +341,7 @@
       <FloatingPointModel>Fast</FloatingPointModel>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>./Include/;DXUT\Core;DXUT\Optional;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\imgui-docking\backends;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\imgui-docking;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\ImGuizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./Include/;DXUT\Core;DXUT\Optional;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\imgui-docking\backends;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\imgui-docking;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\ImGuizmo;C:\Program Files\Autodesk\FBX\FBX SDK\2020.3.9\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>WIN32;NDEBUG;PROFILE;_WINDOWS;D3DXFX_LARGEADDRESS_HANDLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -361,7 +361,7 @@
       <TargetMachine>MachineX86</TargetMachine>
       <UACExecutionLevel>AsInvoker</UACExecutionLevel>
       <DelayLoadDLLs>%(DelayLoadDLLs)</DelayLoadDLLs>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;C:\Program Files\Autodesk\FBX\FBX SDK\2020.3.9\lib\x64\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ImportLibrary>$(SolutionDir)/lib/$(PlatformTarget)/$(TargetName).lib</ImportLibrary>
     </Link>
     <Manifest>
@@ -386,7 +386,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FloatingPointModel>Fast</FloatingPointModel>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>./Include/;DXUT\Core;DXUT\Optional;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\imgui-docking\backends;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\imgui-docking;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\ImGuizmo;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./Include/;DXUT\Core;DXUT\Optional;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\imgui-docking\backends;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\imgui-docking;C:\Users\Usuario\Documents\GitHub\EugrarityEngine\EugrarityEngine\Imgui\ImGuizmo;C:\Program Files\Autodesk\FBX\FBX SDK\2020.3.9\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>WIN32;NDEBUG;PROFILE;_WINDOWS;D3DXFX_LARGEADDRESS_HANDLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -406,7 +406,7 @@
       <TargetMachine>MachineX64</TargetMachine>
       <UACExecutionLevel>AsInvoker</UACExecutionLevel>
       <DelayLoadDLLs>%(DelayLoadDLLs)</DelayLoadDLLs>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;C:\Program Files\Autodesk\FBX\FBX SDK\2020.3.9\lib\x64\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ImportLibrary>$(SolutionDir)/lib/$(PlatformTarget)/$(TargetName).lib</ImportLibrary>
     </Link>
     <Manifest>
@@ -421,9 +421,32 @@
       </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
-  <ItemGroup />
   <ItemGroup>
     <ClCompile Include="EugrarityEngine.cpp" />
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_allegro5.cpp" />
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_dx10.cpp" />
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_dx11.cpp" />
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_dx12.cpp" />
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_dx9.cpp" />
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_glfw.cpp" />
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_glut.cpp" />
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_null.cpp" />
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_opengl2.cpp" />
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_sdl2.cpp" />
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_sdl3.cpp" />
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_sdlgpu3.cpp" />
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_sdlrenderer2.cpp" />
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_sdlrenderer3.cpp" />
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_vulkan.cpp" />
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_wgpu.cpp" />
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_win32.cpp" />
+    <ClCompile Include="Imgui\imgui-docking\imgui.cpp" />
+    <ClCompile Include="Imgui\imgui-docking\imgui_demo.cpp" />
+    <ClCompile Include="Imgui\imgui-docking\imgui_draw.cpp" />
+    <ClCompile Include="Imgui\imgui-docking\imgui_tables.cpp" />
+    <ClCompile Include="Imgui\imgui-docking\imgui_widgets.cpp" />
+    <ClCompile Include="Imgui\ImGuizmo\ImGuizmo.cpp" />
     <ClCompile Include="Source\BaseApp.cpp" />
     <ClCompile Include="Source\Buffer.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
@@ -431,7 +454,9 @@
     <ClCompile Include="Source\Device.cpp" />
     <ClCompile Include="Source\DeviceContext.cpp" />
     <ClCompile Include="Source\ECS\Actor.cpp" />
+    <ClCompile Include="Source\GUI\GUI.cpp" />
     <ClCompile Include="Source\InputLayout.cpp" />
+    <ClCompile Include="Source\Model3D.cpp" />
     <ClCompile Include="Source\RenderTargetView.cpp" />
     <ClCompile Include="Source\SamplerState.cpp" />
     <ClCompile Include="Source\SceneGraph\SceneGraph.cpp" />
@@ -443,10 +468,36 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="EugrarityEngine.fx" />
+    <None Include="Imgui\imgui-docking\backends\imgui_impl_metal.mm" />
+    <None Include="Imgui\imgui-docking\backends\imgui_impl_osx.mm" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_allegro5.h" />
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_android.h" />
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_dx10.h" />
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_dx11.h" />
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_dx12.h" />
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_dx9.h" />
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_glfw.h" />
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_glut.h" />
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_metal.h" />
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_null.h" />
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_opengl2.h" />
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_opengl3.h" />
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_osx.h" />
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_sdl2.h" />
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_sdl3.h" />
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_sdlgpu3_shaders.h" />
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_sdlrenderer2.h" />
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_sdlrenderer3.h" />
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_win32.h" />
     <ClInclude Include="Imgui\imgui-docking\imconfig.h" />
     <ClInclude Include="Imgui\imgui-docking\imgui.h" />
+    <ClInclude Include="Imgui\imgui-docking\imgui_internal.h" />
+    <ClInclude Include="Imgui\imgui-docking\imstb_rectpack.h" />
+    <ClInclude Include="Imgui\imgui-docking\imstb_textedit.h" />
+    <ClInclude Include="Imgui\imgui-docking\imstb_truetype.h" />
     <ClInclude Include="Imgui\ImGuizmo\ImGuizmo.h" />
     <ClInclude Include="Include\BaseApp.h" />
     <ClInclude Include="Include\Buffer.h" />
@@ -475,9 +526,11 @@
     <ClInclude Include="Include\EngineUtilities\Vectors\Vector2.h" />
     <ClInclude Include="Include\EngineUtilities\Vectors\Vector3.h" />
     <ClInclude Include="Include\EngineUtilities\Vectors\Vector4.h" />
+    <ClInclude Include="Include\FBX\fbxsdk.h" />
     <ClInclude Include="Include\InputLayout.h" />
     <ClInclude Include="Include\IResource.h" />
     <ClInclude Include="Include\MeshComponent.h" />
+    <ClInclude Include="Include\Model3D.h" />
     <ClInclude Include="Include\Prerequisites.h" />
     <ClInclude Include="Include\RenderTargetView.h" />
     <ClInclude Include="Include\Resource.h" />

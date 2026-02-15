@@ -57,6 +57,21 @@
     <Filter Include="Imgui\Includes">
       <UniqueIdentifier>{2b6f962a-c056-4e43-9205-3ac5f0117700}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\GUI">
+      <UniqueIdentifier>{2fbb4e99-5b71-49f5-ade4-d595aa19048a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\FBX">
+      <UniqueIdentifier>{ef1d1400-a8fc-42f2-8f1c-816ce1cd34dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\FBX\libxml2_libxml">
+      <UniqueIdentifier>{4dd684f7-01ec-4218-b193-fefa15d1aeab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Imgui\backends">
+      <UniqueIdentifier>{aa83cb17-961c-4e70-90f8-f253358b4fd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Imgui\vulcan">
+      <UniqueIdentifier>{c6d35b0b-5356-4591-a3da-cdab05edab76}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EugrarityEngine.cpp">
@@ -110,10 +125,94 @@
     <ClCompile Include="Source\ECS\Actor.cpp">
       <Filter>Source\ECS</Filter>
     </ClCompile>
+    <ClCompile Include="Imgui\ImGuizmo\ImGuizmo.cpp">
+      <Filter>Imgui\Includes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GUI\GUI.cpp">
+      <Filter>Source\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Model3D.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\imgui-docking\imgui.cpp">
+      <Filter>Imgui\Includes</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\imgui-docking\imgui_demo.cpp">
+      <Filter>Imgui\Includes</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\imgui-docking\imgui_draw.cpp">
+      <Filter>Imgui\Includes</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\imgui-docking\imgui_tables.cpp">
+      <Filter>Imgui\Includes</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\imgui-docking\imgui_widgets.cpp">
+      <Filter>Imgui\Includes</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_allegro5.cpp">
+      <Filter>Imgui\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_dx9.cpp">
+      <Filter>Imgui\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_dx10.cpp">
+      <Filter>Imgui\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_dx11.cpp">
+      <Filter>Imgui\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_dx12.cpp">
+      <Filter>Imgui\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_glfw.cpp">
+      <Filter>Imgui\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_glut.cpp">
+      <Filter>Imgui\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_null.cpp">
+      <Filter>Imgui\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_opengl2.cpp">
+      <Filter>Imgui\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_opengl3.cpp">
+      <Filter>Imgui\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_sdl2.cpp">
+      <Filter>Imgui\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_sdl3.cpp">
+      <Filter>Imgui\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_sdlgpu3.cpp">
+      <Filter>Imgui\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_sdlrenderer2.cpp">
+      <Filter>Imgui\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_sdlrenderer3.cpp">
+      <Filter>Imgui\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_vulkan.cpp">
+      <Filter>Imgui\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_wgpu.cpp">
+      <Filter>Imgui\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_win32.cpp">
+      <Filter>Imgui\backends</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="EugrarityEngine.fx">
       <Filter>Shaders</Filter>
+    </None>
+    <None Include="Imgui\imgui-docking\backends\imgui_impl_metal.mm">
+      <Filter>Imgui\backends</Filter>
+    </None>
+    <None Include="Imgui\imgui-docking\backends\imgui_impl_osx.mm">
+      <Filter>Imgui\backends</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -261,7 +360,83 @@
     <ClInclude Include="Imgui\imgui-docking\imconfig.h">
       <Filter>Imgui\Includes</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
+    <ClInclude Include="Include\FBX\fbxsdk.h">
+      <Filter>Include\FBX</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Model3D.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imgui-docking\imgui_internal.h">
+      <Filter>Imgui\Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imgui-docking\imstb_rectpack.h">
+      <Filter>Imgui\Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imgui-docking\imstb_textedit.h">
+      <Filter>Imgui\Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imgui-docking\imstb_truetype.h">
+      <Filter>Imgui\Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_allegro5.h">
+      <Filter>Imgui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_android.h">
+      <Filter>Imgui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_dx9.h">
+      <Filter>Imgui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_dx10.h">
+      <Filter>Imgui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_dx11.h">
+      <Filter>Imgui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_dx12.h">
+      <Filter>Imgui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_glfw.h">
+      <Filter>Imgui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_glut.h">
+      <Filter>Imgui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_metal.h">
+      <Filter>Imgui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_null.h">
+      <Filter>Imgui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_opengl2.h">
+      <Filter>Imgui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_opengl3.h">
+      <Filter>Imgui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_opengl3_loader.h">
+      <Filter>Imgui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_osx.h">
+      <Filter>Imgui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_sdl2.h">
+      <Filter>Imgui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_sdl3.h">
+      <Filter>Imgui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_sdlgpu3_shaders.h">
+      <Filter>Imgui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_sdlrenderer2.h">
+      <Filter>Imgui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_sdlrenderer3.h">
+      <Filter>Imgui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_win32.h">
+      <Filter>Imgui\backends</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
