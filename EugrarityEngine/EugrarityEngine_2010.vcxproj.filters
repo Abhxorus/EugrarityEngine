@@ -51,6 +51,12 @@
     <Filter Include="Include\EngineUtilities\GUI">
       <UniqueIdentifier>{b29dde24-684a-40ab-b260-1e2d655ce44b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Imgui">
+      <UniqueIdentifier>{fc08fe5d-62f5-46d5-bc74-af9fe092bda3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Imgui\Includes">
+      <UniqueIdentifier>{2b6f962a-c056-4e43-9205-3ac5f0117700}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EugrarityEngine.cpp">
@@ -242,6 +248,18 @@
     </ClInclude>
     <ClInclude Include="Include\ResourceManager.h">
       <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\EngineUtilities\GUI\GUI.h">
+      <Filter>Include\EngineUtilities\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imgui-docking\imgui.h">
+      <Filter>Imgui\Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\ImGuizmo\ImGuizmo.h">
+      <Filter>Imgui\Includes</Filter>
+    </ClInclude>
+    <ClInclude Include="Imgui\imgui-docking\imconfig.h">
+      <Filter>Imgui\Includes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
