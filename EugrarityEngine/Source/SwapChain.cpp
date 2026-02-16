@@ -64,7 +64,7 @@ SwapChain::init(Device& device,
     }
 
     // Config the MSAA settings
-    m_sampleCount = 4;
+    m_sampleCount = 1;//ESTO ERA 4
     hr = device.m_device->CheckMultisampleQualityLevels(DXGI_FORMAT_R8G8B8A8_UNORM,
         m_sampleCount,
         &m_qualityLevels);
@@ -86,9 +86,9 @@ SwapChain::init(Device& device,
     sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
     sd.OutputWindow = window.m_hWnd;
     sd.Windowed = TRUE;
-    sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
-    sd.SampleDesc.Count = m_sampleCount;
-    sd.SampleDesc.Quality = m_qualityLevels - 1;
+    sd.SwapEffect = DXGI_SWAP_EFFECT_SEQUENTIAL;//SE CAMBIO EL _DISCARD POR _SEQUENTIAL
+    sd.SampleDesc.Count = 1;//CAMBIOS POR AQUI m_sampleCount;
+    sd.SampleDesc.Quality = 0;//CAMBIOS POR AQUI m_qualityLevels - 1;
 
     // Get the DXGI factory
     hr = device.m_device->QueryInterface(__uuidof(IDXGIDevice), (void**)&m_dxgiDevice);

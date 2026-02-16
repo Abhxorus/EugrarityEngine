@@ -12,6 +12,7 @@
 #include "MeshComponent.h"
 #include "Buffer.h"
 #include "SamplerState.h"
+#include "ECS/Actor.h"
 
 class
 	BaseApp {
@@ -66,4 +67,5 @@ private:
 	CBChangeOnResize										cbChangesOnResize;
 	CBNeverChanges											cbNeverChanges;
 	CBChangesEveryFrame									cb;
+	std::vector<EU::TSharedPointer<Actor>> m_actors;
 };

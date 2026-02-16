@@ -26,5 +26,5 @@ public:
 private:
 	HINSTANCE m_hInst = nullptr;
 	RECT m_rect;
-	std::string m_windowName = "Wildvine Engine";
+	std::string m_windowName = "Eugrarity Engine";
 };

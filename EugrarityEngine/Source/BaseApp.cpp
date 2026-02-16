@@ -1,4 +1,6 @@
 #include "BaseApp.h"
+#include "Model3D.h"
+#include "ECS/Actor.h"
 
 int
 BaseApp::run(HINSTANCE hInst, int nCmdShow) {
@@ -60,7 +62,7 @@ BaseApp::init() {
 		m_window.m_height,
 		DXGI_FORMAT_D24_UNORM_S8_UINT,
 		D3D11_BIND_DEPTH_STENCIL,
-		4,
+		1,
 		0);
 
 	if (FAILED(hr)) {
@@ -116,13 +118,13 @@ BaseApp::init() {
 	Layout.push_back(texcoord);
 
 	// Create the Shader Program
-	hr = m_shaderProgram.init(m_device, "WildvineEngine.fx", Layout);
+	hr = m_shaderProgram.init(m_device, "EugrarityEngine.fx", Layout);
 	if (FAILED(hr)) {
 		ERROR("Main", "InitDevice",
 			("Failed to initialize ShaderProgram. HRESULT: " + std::to_string(hr)).c_str());
 		return hr;
 	}
-
+	/*
 	// Create vertex buffer
 	SimpleVertex vertices[] =
 	{
@@ -156,7 +158,7 @@ BaseApp::init() {
 			{ XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT2(1.0f, 1.0f) },
 			{ XMFLOAT3(-1.0f, 1.0f, 1.0f), XMFLOAT2(0.0f, 1.0f) },
 	};
-
+	*/
 	unsigned int indices[] =
 	{
 			3,1,0,
@@ -177,13 +179,13 @@ BaseApp::init() {
 			22,20,21,
 			23,20,22
 	};
-
+	/*
 	// Integrar los vertices a meshcomponent
 	for (unsigned int i = 0; i < 24; i++) {
 		m_mesh.m_vertex.push_back(vertices[i]);
 	}
 	m_mesh.m_numVertex = 24;
-
+	
 	// Integrar los indices a meshcomponent
 	for (unsigned int i = 0; i < 36; i++) {
 		m_mesh.m_index.push_back(indices[i]);
@@ -207,10 +209,37 @@ BaseApp::init() {
 			("Failed to initialize IndexBuffer. HRESULT: " + std::to_string(hr)).c_str());
 		return hr;
 	}
-
+	*/
 	// Set primitive topology
 	m_deviceContext.IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	// Cargar modelos
+	{
+		Model3D fbxResource("MiModelo", ModelType::FBX);
+		// Verificamos si la carga fue exitosa antes de continuar
+		if (fbxResource.load("Assets/tu_modelo.fbx")) {
+			auto nuevoActor = EU::MakeShared<Actor>(m_device);
+			nuevoActor->setMesh(m_device, fbxResource.GetMeshes());
+			nuevoActor->setName("Modelo3D_Cargado");
 
+			// --- MODIFICACIÓN IMPORTANTE: Ajuste de Transform ---
+			// Los FBX suelen ser gigantes (x100). Los reducimos para verlos.
+			auto transform = nuevoActor->getComponent<Transform>();
+			if (transform) {
+				transform->setTransform(
+					EU::Vector3(0.0f, 0.0f, 0.0f),  // Posición: Un poco abajo y al frente (Z=10)
+					EU::Vector3(180.0f, 0.0f, 135.0f),  // Rotación: Girado 180 grados (a veces vienen de espaldas)
+					EU::Vector3(1.0f, 1.0f, 1.0f)  // Escala: Reducida al 1%
+				);
+			}
+			// ---------------------------------------------------
+
+			m_actors.push_back(nuevoActor);
+		}
+		else {
+			// Si falla, imprimimos error pero no rompemos el programa inmediatamente
+			ERROR("BaseApp", "init", "ERROR FATAL: No se encontro Assets/tu_modelo.fbx");
+		}
+	}
 	// Create the constant buffers
 	hr = m_cbNeverChanges.init(m_device, sizeof(CBNeverChanges));
 	if (FAILED(hr)) {
@@ -299,6 +328,12 @@ void BaseApp::update(float deltaTime)
 	cb.mWorld = XMMatrixTranspose(m_World);
 	cb.vMeshColor = m_vMeshColor;
 	m_cbChangesEveryFrame.update(m_deviceContext, nullptr, 0, nullptr, &cb, 0, 0);
+
+	for (auto& actor : m_actors) {
+		if (actor) {
+			actor->update(deltaTime, m_deviceContext);
+		}
+	}
 }
 
 void
@@ -318,8 +353,8 @@ BaseApp::render() {
 
 	// Render the cube
 	 // Asignar buffers Vertex e Index
-	m_vertexBuffer.render(m_deviceContext, 0, 1);
-	m_indexBuffer.render(m_deviceContext, 0, 1, false, DXGI_FORMAT_R32_UINT);
+	//m_vertexBuffer.render(m_deviceContext, 0, 1);
+	//m_indexBuffer.render(m_deviceContext, 0, 1, false, DXGI_FORMAT_R32_UINT);
 
 	// Asignar buffers constantes
 	m_cbNeverChanges.render(m_deviceContext, 0, 1);
@@ -330,9 +365,14 @@ BaseApp::render() {
 	// Asignar textura y sampler
 	m_textureCube.render(m_deviceContext, 0, 1);
 	m_samplerState.render(m_deviceContext, 0, 1);
-	m_deviceContext.DrawIndexed(m_mesh.m_numIndex, 0, 0);
+	//m_deviceContext.DrawIndexed(m_mesh.m_numIndex, 0, 0);
 
 	// Present our back buffer to our front buffer
+	for (auto& actor : m_actors) {
+		if (actor) {
+			actor->render(m_deviceContext);
+		}
+	}
 	m_swapChain.present();
 }
 
