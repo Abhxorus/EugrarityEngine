@@ -434,6 +434,7 @@
     <ClCompile Include="Source\BaseApp.cpp" />
     <ClCompile Include="Source\Buffer.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
+    <ClCompile Include="Source\DepthStencilState.cpp" />
     <ClCompile Include="Source\DepthStencilView.cpp" />
     <ClCompile Include="Source\Device.cpp" />
     <ClCompile Include="Source\DeviceContext.cpp" />
@@ -441,10 +442,12 @@
     <ClCompile Include="Source\GUI\GUI.cpp" />
     <ClCompile Include="Source\InputLayout.cpp" />
     <ClCompile Include="Source\Model3D.cpp" />
+    <ClCompile Include="Source\RasterizerState.cpp" />
     <ClCompile Include="Source\RenderTargetView.cpp" />
     <ClCompile Include="Source\SamplerState.cpp" />
     <ClCompile Include="Source\SceneGraph\SceneGraph.cpp" />
     <ClCompile Include="Source\ShaderProgram.cpp" />
+    <ClCompile Include="Source\Skybox.cpp" />
     <ClCompile Include="Source\SwapChain.cpp" />
     <ClCompile Include="Source\Texture.cpp" />
     <ClCompile Include="Source\Viewport.cpp" />
@@ -465,6 +468,7 @@
     <ClInclude Include="Imgui\ImGuizmo\ImGuizmo.h" />
     <ClInclude Include="Include\BaseApp.h" />
     <ClInclude Include="Include\Buffer.h" />
+    <ClInclude Include="Include\DepthStencilState.h" />
     <ClInclude Include="Include\DepthStencilView.h" />
     <ClInclude Include="Include\Device.h" />
     <ClInclude Include="Include\DeviceContext.h" />
@@ -486,6 +490,7 @@
     <ClInclude Include="Include\EngineUtilities\Structures\TSet.h" />
     <ClInclude Include="Include\EngineUtilities\Utilities\Camera.h" />
     <ClInclude Include="Include\EngineUtilities\Utilities\EngineMath.h" />
+    <ClInclude Include="Include\EngineUtilities\Utilities\Skybox.h" />
     <ClInclude Include="Include\EngineUtilities\Vectors\Quaternion.h" />
     <ClInclude Include="Include\EngineUtilities\Vectors\Vector2.h" />
     <ClInclude Include="Include\EngineUtilities\Vectors\Vector3.h" />
@@ -496,6 +501,7 @@
     <ClInclude Include="Include\MeshComponent.h" />
     <ClInclude Include="Include\Model3D.h" />
     <ClInclude Include="Include\Prerequisites.h" />
+    <ClInclude Include="Include\RasterizerState.h" />
     <ClInclude Include="Include\RenderTargetView.h" />
     <ClInclude Include="Include\Resource.h" />
     <ClInclude Include="Include\ResourceManager.h" />

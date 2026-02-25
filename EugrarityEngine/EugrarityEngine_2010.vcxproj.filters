@@ -155,6 +155,15 @@
     <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_dx11.cpp">
       <Filter>Imgui\backends</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Skybox.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DepthStencilState.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RasterizerState.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="EugrarityEngine.fx">
@@ -329,6 +338,15 @@
     </ClInclude>
     <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_dx11.h">
       <Filter>Imgui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\EngineUtilities\Utilities\Skybox.h">
+      <Filter>Include\EngineUtilities\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\RasterizerState.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\DepthStencilState.h">
+      <Filter>Include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

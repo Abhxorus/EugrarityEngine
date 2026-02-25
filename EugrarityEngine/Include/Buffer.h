@@ -139,16 +139,17 @@ public:
             D3D11_BUFFER_DESC& desc,
             D3D11_SUBRESOURCE_DATA* initData);
 
+public:
+    ID3D11Buffer* m_buffer = nullptr;
 private:
     /**
      * @brief Recurso COM de D3D11 administrado por la clase.
      */
-    ID3D11Buffer* m_buffer = nullptr;
 
-    /**
-     * @brief Tamaño de un elemento en bytes (para Vertex Buffer).
-     * @details Usado en @c IASetVertexBuffers. Cero cuando no aplica.
-     */
+     /**
+      * @brief Tamaño de un elemento en bytes (para Vertex Buffer).
+      * @details Usado en @c IASetVertexBuffers. Cero cuando no aplica.
+      */
     unsigned int m_stride = 0;
 
     /**
