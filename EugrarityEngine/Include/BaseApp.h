@@ -17,6 +17,7 @@
 #include "EngineUtilities\GUI/GUI.h"
 #include "SceneGraph\SceneGraph.h"
 #include "EngineUtilities\Utilities\Camera.h"
+#include "EngineUtilities\Utilities\Skybox.h"
 
 extern IMGUI_IMPL_API
 LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -77,4 +78,8 @@ private:
 	CBChangeOnResize										cbChangesOnResize;
 	CBNeverChanges											cbNeverChanges;
 	GUI																m_gui;
+
+	Skybox m_skybox;
+	RasterizerState m_defaultRasterizer;
+	DepthStencilState m_defaultDepthStencil;
 };
