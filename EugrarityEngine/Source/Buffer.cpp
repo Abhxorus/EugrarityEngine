@@ -2,6 +2,14 @@
 #include "Device.h"
 #include "DeviceContext.h"
 
+/**
+ * @brief Inicializa un buffer de datos geométricos (Vértices o Índices).
+ * * Configura la descripción del buffer y los datos iniciales basándose en el bindFlag proporcionado.
+ * * @param device Referencia al dispositivo de hardware.
+ * @param mesh Estructura que contiene los vectores de vértices e índices.
+ * @param bindFlag Bandera de DirectX que indica si es un buffer de vértices o índices.
+ * @return HRESULT S_OK si el buffer se creó correctamente, código de error en caso de datos vacíos o fallo de creación.
+ */
 HRESULT
 Buffer::init(Device& device, const MeshComponent& mesh, unsigned int bindFlag) {
 	if (!device.m_device) {
@@ -40,6 +48,14 @@ Buffer::init(Device& device, const MeshComponent& mesh, unsigned int bindFlag) {
 	return createBuffer(device, desc, &data);
 }
 
+/**
+ * @brief Inicializa un Constant Buffer (Buffer Constante).
+ * * Crea un buffer vacío con el tamaño especificado, optimizado para ser actualizado
+ * frecuentemente desde la CPU para enviar datos como matrices o colores a los shaders.
+ * * @param device Referencia al dispositivo de hardware.
+ * @param ByteWidth Tamaño total del buffer en bytes (debe ser múltiplo de 16).
+ * @return HRESULT S_OK si la creación fue exitosa.
+ */
 HRESULT
 Buffer::init(Device& device, unsigned int ByteWidth) {
 	if (!device.m_device) {
@@ -61,6 +77,17 @@ Buffer::init(Device& device, unsigned int ByteWidth) {
 	return createBuffer(device, desc, nullptr);
 }
 
+/**
+ * @brief Actualiza el contenido del buffer en la GPU.
+ * * Utiliza UpdateSubresource para copiar datos desde la memoria del sistema a la memoria de video.
+ * * @param deviceContext Contexto del dispositivo para ejecutar la copia.
+ * @param pDstResource Recurso de destino (usualmente m_buffer).
+ * @param DstSubresource Índice del subrecurso.
+ * @param pDstBox Caja que define la región a actualizar (nullptr para todo el buffer).
+ * @param pSrcData Puntero a los nuevos datos en la CPU.
+ * @param SrcRowPitch Tamaño de una fila de datos.
+ * @param SrcDepthPitch Tamaño de una profundidad de datos.
+ */
 void
 Buffer::update(DeviceContext& deviceContext,
 	ID3D11Resource* pDstResource,
@@ -83,10 +110,18 @@ Buffer::update(DeviceContext& deviceContext,
 		pSrcData,
 		SrcRowPitch,
 		SrcDepthPitch);
-
-
 }
 
+/**
+ * @brief Vincula el buffer al pipeline de renderizado según su tipo.
+ * * Gestiona automáticamente si el buffer debe ir al Input Assembler (vértices/índices)
+ * o a las etapas de Shaders (constantes).
+ * * @param deviceContext Contexto del dispositivo.
+ * @param StartSlot Slot de inicio para la vinculación.
+ * @param NumBuffers Cantidad de buffers a vincular.
+ * @param setPixelShader Si es true y es un Constant Buffer, también lo vincula al Pixel Shader.
+ * @param format Formato de datos (principalmente para Index Buffers).
+ */
 void
 Buffer::render(DeviceContext& deviceContext,
 	unsigned int StartSlot,
@@ -121,11 +156,21 @@ Buffer::render(DeviceContext& deviceContext,
 	}
 }
 
+/**
+ * @brief Libera el recurso del buffer de la memoria de video.
+ */
 void
 Buffer::destroy() {
 	SAFE_RELEASE(m_buffer);
 }
 
+/**
+ * @brief Función interna para la creación física del buffer en DirectX 11.
+ * * @param device Referencia al dispositivo.
+ * @param desc Descripción técnica del buffer.
+ * @param initData Puntero a los datos iniciales (opcional).
+ * @return HRESULT Resultado de la creación.
+ */
 HRESULT
 Buffer::createBuffer(Device& device,
 	D3D11_BUFFER_DESC& desc,

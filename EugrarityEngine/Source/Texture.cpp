@@ -248,3 +248,152 @@ Texture::destroy() {
         SAFE_RELEASE(m_textureFromImg);
     }
 }
+
+HRESULT
+Texture::CreateCubemap(Device& device,
+    DeviceContext& deviceContext,
+    const std::array<std::string, 6>& facePaths,
+    bool generateMips) {
+    // 0) Limpieza si ya había recursos
+    destroy();
+
+    // 1) Cargar caras con stb_image (forzar RGBA)
+    stbi_set_flip_vertically_on_load(false);
+
+    int width = 0, height = 0, channels = 0;
+    std::array<unsigned char*, 6> facePixels{};
+    facePixels.fill(nullptr);
+
+    for (int i = 0; i < 6; ++i) {
+        int w = 0, h = 0, c = 0;
+        facePixels[i] = stbi_load(facePaths[i].c_str(), &w, &h, &c, 4);
+        if (!facePixels[i]) {
+            // liberar lo ya cargado
+            for (int k = 0; k < i; ++k) {
+                if (facePixels[k]) {
+                    stbi_image_free(facePixels[k]);
+                    return E_FAIL;
+                }
+            }
+        }
+
+        if (i == 0) {
+            width = w;
+            height = h;
+        }
+        else {
+            if (w != width || h != height) {
+                ERROR("Texture", "CreateCubemap", "All cubemap faces must have the same dimensions.");
+                // liberar lo ya cargado
+                for (int k = 0; k <= i; ++k) {
+                    if (facePixels[k]) {
+                        stbi_image_free(facePixels[k]);
+                        return E_FAIL;
+                    }
+                }
+            }
+        }
+    }
+
+    // 2) Crear Texture2D array (6 slices) y marcarla como cubemap
+    D3D11_TEXTURE2D_DESC texDesc{};
+    texDesc.Width = static_cast<unsigned int>(width);
+    texDesc.Height = static_cast<unsigned int>(height);
+    texDesc.MipLevels = generateMips ? 0 : 1;
+    texDesc.ArraySize = 6;
+    texDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+    texDesc.SampleDesc.Count = 1;
+    texDesc.SampleDesc.Quality = 0;
+    texDesc.Usage = D3D11_USAGE_DEFAULT;
+    texDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE | (generateMips ? D3D11_BIND_RENDER_TARGET : 0);
+    texDesc.CPUAccessFlags = 0;
+    texDesc.MiscFlags = D3D11_RESOURCE_MISC_TEXTURECUBE | (generateMips ? D3D11_RESOURCE_MISC_GENERATE_MIPS : 0);
+
+    HRESULT hr = S_OK;
+
+    if (!generateMips) {
+        std::array<D3D11_SUBRESOURCE_DATA, 6> initData{};
+        for (int face = 0; face < 6; ++face)
+        {
+            initData[face].pSysMem = facePixels[face];
+            initData[face].SysMemPitch = static_cast<unsigned int>(width * 4);
+            initData[face].SysMemSlicePitch = 0;
+        }
+
+        hr = device.CreateTexture2D(&texDesc, initData.data(), &m_texture);
+        if (FAILED(hr)) {
+            for (auto* p : facePixels) {
+                if (p) {
+                    stbi_image_free(p);
+                }
+            }
+            return hr;
+        }
+    }
+    else {
+        // crear vacío y subir mip 0 por cara
+        hr = device.CreateTexture2D(&texDesc, nullptr, &m_texture);
+        if (FAILED(hr)) {
+            for (auto* p : facePixels) {
+                if (p) {
+                    stbi_image_free(p);
+                }
+            }
+            return hr;
+        }
+
+        UINT mipCount = 1 + (UINT)floor(log2(max(width, height)));
+
+        for (UINT face = 0; face < 6; ++face)
+        {
+            UINT sub = D3D11CalcSubresource(0, face, mipCount);
+
+            deviceContext.UpdateSubresource(
+                m_texture,
+                sub,
+                nullptr,
+                facePixels[face],
+                width * 4,
+                0
+            );
+        }
+        deviceContext.m_deviceContext->GenerateMips(m_textureFromImg);
+    }
+
+    // 3) Crear SRV dimension TEXTURECUBE
+    D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc{};
+    srvDesc.Format = texDesc.Format;
+    srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURECUBE;
+    srvDesc.TextureCube.MostDetailedMip = 0;
+    srvDesc.TextureCube.MipLevels = generateMips ? (unsigned int)-1 : 1;
+
+    hr = device.m_device->CreateShaderResourceView(m_texture, &srvDesc, &m_textureFromImg);
+
+    if (FAILED(hr)) {
+        for (auto* p : facePixels) {
+            if (p) {
+                stbi_image_free(p);
+            }
+        }
+        destroy();
+        return hr;
+    }
+
+    // 4) Generar mips si aplica
+    if (generateMips)
+    {
+        deviceContext.m_deviceContext->GenerateMips(m_textureFromImg);
+    }
+
+    // 5) Liberar CPU pixels
+    for (auto* p : facePixels) {
+        if (p) {
+            stbi_image_free(p);
+        }
+    }
+
+    // 6) Guarda nombre (opcional)
+    m_textureName = "Cubemap";
+
+    return S_OK;
+}
