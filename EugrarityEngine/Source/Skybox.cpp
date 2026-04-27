@@ -1,27 +1,25 @@
+/**
+ * @file Skybox.cpp
+ * @brief Implementa la logica de Skybox dentro del subsistema Utilities.
+ * @ingroup utilities
+ */
 #include "EngineUtilities/Utilities/Skybox.h"
 #include "Device.h"
 #include "DeviceContext.h"
+#include "EngineUtilities/Utilities/LayoutBuilder.h"
 
-/**
- * @brief Inicializa todos los componentes necesarios para el renderizado del Skybox.
- * * Configura la geometría del cubo unitario, crea el Actor de soporte, carga los shaders
- * de HLSL, y establece los estados de Pipeline (Rasterizer con Front-Culling y Depth con Less-Equal).
- * * @param device Referencia al dispositivo de hardware.
- * @param deviceContext Puntero al contexto del dispositivo (no se usa directamente aquí, pero se mantiene por firma).
- * @param cubemap Referencia a la textura de tipo Cubemap ya cargada.
- * @return HRESULT S_OK si todo se inicializó correctamente.
- */
+
 HRESULT
 Skybox::init(Device& device, DeviceContext* deviceContext, Texture& cubemap) {
 	destroy();
-
-	// Cargar el cubemap compartido
+	// Cargar el cubemap
 	m_skyboxTexture = cubemap;
 
-	// 1) Definición de Geometría (Cubo unitario centrado en el origen)
+	// 1) Geometría (cubo)
+	 // Cubo unitario centrado en origen. (tamaño no importa si quitas traslación)
 	const SkyboxVertex vertices[] = {
-			{-1,-1,-1}, {-1,+1,-1}, {+1,+1,-1}, {+1,-1,-1}, // Cara trasera
-			{-1,-1,+1}, {-1,+1,+1}, {+1,+1,+1}, {+1,-1,+1}, // Cara frontal
+			{-1,-1,-1}, {-1,+1,-1}, {+1,+1,-1}, {+1,-1,-1}, // back
+			{-1,-1,+1}, {-1,+1,+1}, {+1,+1,+1}, {+1,-1,+1}, // front
 	};
 
 	const unsigned int indices[] =
@@ -40,14 +38,17 @@ Skybox::init(Device& device, DeviceContext* deviceContext, Texture& cubemap) {
 		4,0,3, 4,3,7
 	};
 
-	// Creación del Actor para el Skybox dentro del sistema ECS
+	// Load Model
 	m_skybox = EU::MakeShared<Actor>(device);
 
 	if (!m_skybox.isNull()) {
+		// Crear vertex buffer y index buffer para el skybox
 		std::vector<MeshComponent> skybox;
-		// Instanciación del modelo 3D con los datos crudos definidos arriba
 		m_cubeModel = new Model3D("Skybox", vertices, indices);
+
 		skybox = m_cubeModel->GetMeshes();
+
+		// No texture loading
 
 		m_skybox->setMesh(device, skybox);
 		m_skybox->setName("skybox");
@@ -57,53 +58,45 @@ Skybox::init(Device& device, DeviceContext* deviceContext, Texture& cubemap) {
 		return E_FAIL;
 	}
 
-	// Definición del Layout de entrada (Solo posición para el Skybox)
-	std::vector<D3D11_INPUT_ELEMENT_DESC> Layout;
-	D3D11_INPUT_ELEMENT_DESC position;
-	position.SemanticName = "POSITION";
-	position.SemanticIndex = 0;
-	position.Format = DXGI_FORMAT_R32G32B32_FLOAT;
-	position.InputSlot = 0;
-	position.AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
-	position.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-	position.InstanceDataStepRate = 0;
-	Layout.push_back(position);
+
+	// Define the input layout
+	LayoutBuilder builder;
+
+	builder.Add("POSITION", DXGI_FORMAT_R32G32B32_FLOAT);
 
 	HRESULT hr = S_OK;
-
-	// Inicialización del programa de Shaders (Skybox.hlsl)
-	hr = m_shaderProgram.init(device, "Skybox.hlsl", Layout);
+	// Create the Shader Program
+	hr = m_shaderProgram.init(device, "Skybox.hlsl", builder.Get());
 	if (FAILED(hr)) {
 		ERROR("Skybox", "init",
 			("Failed to initialize ShaderProgram. HRESULT: " + std::to_string(hr)).c_str());
 		return hr;
 	}
 
-	// Inicialización del Constant Buffer para la matriz View-Projection
-	hr = m_constantBuffer.init(device, sizeof(CBSkybox));
+	// Create the constant buffers
+	hr = m_constantBuffer.init(device, sizeof(CBSkybox));  // View
 	if (FAILED(hr)) {
 		ERROR("Skybox", "init",
 			("Failed to initialize NeverChanges Buffer. HRESULT: " + std::to_string(hr)).c_str());
 		return hr;
 	}
 
-	// Inicialización del Sampler State para el filtrado del Cubemap
+	// Init SamplerState
 	hr = m_samplerState.init(device);
 	if (FAILED(hr)) {
 		ERROR("Skybox", "init", "Failed to create new SamplerState");
 	}
 
-	// Inicialización del Rasterizer: Cull Front porque estamos dentro del cubo
+	// Init Rasterizer
 	hr = m_rasterizerState.init(device, D3D11_FILL_SOLID, D3D11_CULL_FRONT, false, true);
 	if (FAILED(hr)) {
 		ERROR("Skybox", "init", "Failed to create new RasterizerState");
 	}
 
-	// Inicialización del DepthStencil: Comparación Less-Equal y sin escritura de profundidad
-	// para que el Skybox se dibuje "detrás" de cualquier objeto u opacidad.
+	// Init DepthStencilState
 	hr = m_depthStencilState.init(device, true,
-		D3D11_DEPTH_WRITE_MASK_ZERO,
-		D3D11_COMPARISON_LESS_EQUAL);
+															  D3D11_DEPTH_WRITE_MASK_ZERO,
+															  D3D11_COMPARISON_LESS_EQUAL);
 	if (FAILED(hr)) {
 		ERROR("Skybox", "init", "Failed to create new DepthStencilState");
 	}
@@ -111,44 +104,40 @@ Skybox::init(Device& device, DeviceContext* deviceContext, Texture& cubemap) {
 	return S_OK;
 }
 
-/**
- * @brief Ejecuta el proceso de dibujado del Skybox.
- * * Utiliza una matriz de vista sin traslación para mantener el cielo centrado en la cámara.
- * Gestiona la vinculación de recursos en el slot 10 para evitar colisiones con texturas de objetos.
- * * @param deviceContext Contexto del dispositivo para comandos de GPU.
- * @param camera Referencia a la cámara para obtener matrices de transformación.
- */
-void
-Skybox::render(DeviceContext& deviceContext, Camera& camera) {
-	// Verificación de seguridad antes de renderizar
-	if (!m_cubeModel || !m_skyboxTexture.m_textureFromImg) return;
-
-	// 1) Aplicar estados de renderizado específicos del Skybox
-	m_rasterizerState.render(deviceContext);
-	m_depthStencilState.render(deviceContext, 0, false);
-
-	// 2) Preparar matrices: Se usa ViewNoTranslation para que el cielo no se aleje al mover la cámara
+void Skybox::update(DeviceContext& deviceContext, Camera& camera) {
+	// 2) View sin traslación + VP (SOLO una transpuesta al final)
 	XMMATRIX viewNoT = camera.GetViewNoTranslation();
 	XMMATRIX vp = viewNoT * camera.getProj();
 	CBSkybox cb{};
 	cb.mviewProj = XMMatrixTranspose(vp);
-
-	// Actualización del buffer constante en el slot 0
 	m_constantBuffer.update(deviceContext, nullptr, 0, nullptr, &cb, 0, 0);
+}
+
+void
+Skybox::render(DeviceContext& deviceContext) {
+	// Guard: si no se inicializó bien, no intentes renderizar
+	if (!m_cubeModel || !m_skyboxTexture.m_textureFromImg) return;
+
+	// 1) States del skybox
+	m_rasterizerState.render(deviceContext);
+	m_depthStencilState.render(deviceContext, 0, false);
+
 	m_constantBuffer.render(deviceContext, 0, 1);
 
-	// 3) Vincular Shader y Sampler (Sampler en slot 10 según convención del motor)
+	// 3) Shader + sampler (slot 10)
 	m_shaderProgram.render(deviceContext);
 	m_samplerState.render(deviceContext, 10, 1);
 
-	// 4) Vincular la textura Cubemap en el slot 10
+	// 4) IMPORTANTÍSIMO: bindea cubemap ANTES del draw (slot 10)
 	m_skyboxTexture.render(deviceContext, 10, 1);
 
-	// 5) Renderizar la geometría del cubo (IA + DrawIndexed)
+	// 5) Asegura IA (topology + VB/IB) antes del DrawIndexed
 	m_skybox->renderForSkybox(deviceContext);
 
-	// 6) Limpieza de estados: Desvincular SRV de los slots para evitar conflictos en el siguiente draw call
+	// 3) Limpia t0 para evitar mismatch por shaders 2D que usen t0
 	ID3D11ShaderResourceView* nullSRV[1] = { nullptr };
-	deviceContext.m_deviceContext->PSSetShaderResources(10, 1, nullSRV); // Limpiar slot 10 (Skybox)
-	deviceContext.m_deviceContext->PSSetShaderResources(0, 1, nullSRV);  // Limpiar slot 0 (General)
+	deviceContext.m_deviceContext->PSSetShaderResources(10, 1, nullSRV);
+
+	// 5) Unbind t10
+	deviceContext.m_deviceContext->PSSetShaderResources(0, 1, nullSRV);
 }

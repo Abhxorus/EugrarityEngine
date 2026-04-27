@@ -50,7 +50,7 @@ public:
 	 * actualizarse directamente en el renderizado respecto a la cámara.
 	 */
 	void
-		update() {}
+		update(DeviceContext& deviceContext, Camera& camera);
 
 	/**
 	 * @brief Renderiza el Skybox en la escena.
@@ -61,7 +61,7 @@ public:
 	 * @param camera Referencia a la cámara activa para obtener las matrices de View y Projection.
 	 */
 	void
-		render(DeviceContext& deviceContext, Camera& camera);
+		render(DeviceContext& deviceContext);
 
 	/**
 	 * @brief Libera los recursos asociados al Skybox.

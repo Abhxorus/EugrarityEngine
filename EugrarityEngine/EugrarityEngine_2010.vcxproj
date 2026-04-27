@@ -443,6 +443,9 @@
     <ClCompile Include="Source\InputLayout.cpp" />
     <ClCompile Include="Source\Model3D.cpp" />
     <ClCompile Include="Source\RasterizerState.cpp" />
+    <ClCompile Include="Source\Rendering\ForwardRenderer.cpp" />
+    <ClCompile Include="Source\Rendering\MaterialInstance.cpp" />
+    <ClCompile Include="Source\Rendering\RenderScene.cpp" />
     <ClCompile Include="Source\RenderTargetView.cpp" />
     <ClCompile Include="Source\SamplerState.cpp" />
     <ClCompile Include="Source\SceneGraph\SceneGraph.cpp" />
@@ -489,7 +492,9 @@
     <ClInclude Include="Include\EngineUtilities\Structures\TPair.h" />
     <ClInclude Include="Include\EngineUtilities\Structures\TSet.h" />
     <ClInclude Include="Include\EngineUtilities\Utilities\Camera.h" />
+    <ClInclude Include="Include\EngineUtilities\Utilities\EditorViewportPass.h" />
     <ClInclude Include="Include\EngineUtilities\Utilities\EngineMath.h" />
+    <ClInclude Include="Include\EngineUtilities\Utilities\LayoutBuilder.h" />
     <ClInclude Include="Include\EngineUtilities\Utilities\Skybox.h" />
     <ClInclude Include="Include\EngineUtilities\Vectors\Quaternion.h" />
     <ClInclude Include="Include\EngineUtilities\Vectors\Vector2.h" />
@@ -502,6 +507,12 @@
     <ClInclude Include="Include\Model3D.h" />
     <ClInclude Include="Include\Prerequisites.h" />
     <ClInclude Include="Include\RasterizerState.h" />
+    <ClInclude Include="Include\Rendering\ForwardRenderer.h" />
+    <ClInclude Include="Include\Rendering\Material.h" />
+    <ClInclude Include="Include\Rendering\MaterialInstance.h" />
+    <ClInclude Include="Include\Rendering\Mesh.h" />
+    <ClInclude Include="Include\Rendering\RenderScene.h" />
+    <ClInclude Include="Include\Rendering\RenderTypes.h" />
     <ClInclude Include="Include\RenderTargetView.h" />
     <ClInclude Include="Include\Resource.h" />
     <ClInclude Include="Include\ResourceManager.h" />
