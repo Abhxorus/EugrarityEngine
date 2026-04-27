@@ -57,9 +57,20 @@ struct SimpleVertex
     XMFLOAT2 Tex;
 };
 
+struct
+    SkyboxVertex {
+    float x, y, z;
+};
+
+
 struct CBNeverChanges
 {
     XMMATRIX mView;
+};
+
+struct CBSkybox
+{
+    XMMATRIX mviewProj;
 };
 
 struct CBChangeOnResize

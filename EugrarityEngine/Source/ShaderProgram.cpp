@@ -86,7 +86,7 @@ ShaderProgram::CreateShader(Device& device, ShaderType type) {
 	ID3DBlob* shaderData = nullptr;
 
 	const char* shaderEntryPoint = (type == ShaderType::PIXEL_SHADER) ? "PS" : "VS";
-	const char* shaderModel = (type == ShaderType::PIXEL_SHADER) ? "ps_4_0" : "vs_4_0";
+	const char* shaderModel = (type == ShaderType::PIXEL_SHADER) ? "ps_5_0" : "vs_5_0";
 
 	// Compile the shader from file
 	hr = CompileShaderFromFile(m_shaderFileName.data(),

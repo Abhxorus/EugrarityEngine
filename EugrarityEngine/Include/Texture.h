@@ -122,6 +122,35 @@ public:
     void
         destroy();
 
+    HRESULT
+        CreateCubemap(Device& device,
+            DeviceContext& deviceContext,
+            const std::array<std::string, 6>& facePaths,
+            bool generateMips /*= false*/);
+
+    ID3D11ShaderResourceView* CreateCubemapFaceSRV(
+        ID3D11Device* device,
+        ID3D11Texture2D* cubemapTex,
+        DXGI_FORMAT format,
+        UINT faceIndex,
+        UINT mipLevels = 1
+    )
+    {
+        D3D11_SHADER_RESOURCE_VIEW_DESC d{};
+        d.Format = format;
+        d.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2DARRAY;
+        d.Texture2DArray.MostDetailedMip = 0;
+        d.Texture2DArray.MipLevels = mipLevels;       // usa 1 para vista simple
+        d.Texture2DArray.FirstArraySlice = faceIndex; // cara
+        d.Texture2DArray.ArraySize = 1;               // solo esa cara
+
+        ID3D11ShaderResourceView* srv = nullptr;
+        if (FAILED(device->CreateShaderResourceView(cubemapTex, &d, &srv)))
+            return nullptr;
+
+        return srv;
+    }
+
 public:
     /**
      * @brief Recurso base de la textura en GPU.

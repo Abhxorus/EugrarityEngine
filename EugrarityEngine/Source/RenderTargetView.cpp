@@ -4,6 +4,14 @@
 #include "DeviceContext.h"
 #include "DepthStencilView.h"
 
+/**
+ * @brief Inicializa una Render Target View (RTV) diseñada específicamente para el Back Buffer.
+ * * Configura la vista utilizando por defecto dimensiones de textura con multisampleo (TEXTURE2DMS).
+ * * @param device Referencia al dispositivo de hardware para crear el recurso.
+ * @param backBuffer Referencia a la textura que servirá como buffer de salida.
+ * @param Format Formato de datos de color (ej. DXGI_FORMAT_R8G8B8A8_UNORM).
+ * @return HRESULT S_OK si la creación fue exitosa, o un código de error específico si fallan los punteros o el formato.
+ */
 HRESULT
 RenderTargetView::init(Device& device, Texture& backBuffer, DXGI_FORMAT Format) {
 	if (!device.m_device) {
@@ -19,13 +27,13 @@ RenderTargetView::init(Device& device, Texture& backBuffer, DXGI_FORMAT Format) 
 		return E_INVALIDARG;
 	}
 
-	// Config the description for the render target view
+	// Configuración de la descripción para la vista de destino de renderizado
 	D3D11_RENDER_TARGET_VIEW_DESC desc;
 	memset(&desc, 0, sizeof(desc));
 	desc.Format = Format;
 	desc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2DMS;
 
-	// Create the render target view
+	// Creación física de la RTV en la GPU
 	HRESULT hr = device.m_device->CreateRenderTargetView(backBuffer.m_texture,
 		&desc,
 		&m_renderTargetView);
@@ -38,6 +46,15 @@ RenderTargetView::init(Device& device, Texture& backBuffer, DXGI_FORMAT Format) 
 	return S_OK;
 }
 
+/**
+ * @brief Inicializa una Render Target View con parámetros de dimensión personalizados.
+ * * Permite mayor flexibilidad para texturas que no son necesariamente el Back Buffer (ej. Render-to-Texture).
+ * * @param device Referencia al dispositivo de hardware.
+ * @param inTex Textura de entrada sobre la cual se creará la vista.
+ * @param ViewDimension Dimensión del recurso (Texture2D, Texture2DMS, etc.).
+ * @param Format Formato de color de la vista.
+ * @return HRESULT Resultado de la operación de creación en DirectX.
+ */
 HRESULT
 RenderTargetView::init(Device& device,
 	Texture& inTex,
@@ -56,13 +73,11 @@ RenderTargetView::init(Device& device,
 		return E_INVALIDARG;
 	}
 
-	// Config the description for the render target view
 	D3D11_RENDER_TARGET_VIEW_DESC desc;
 	memset(&desc, 0, sizeof(desc));
 	desc.Format = Format;
 	desc.ViewDimension = ViewDimension;
 
-	// Create the render target view
 	HRESULT hr = device.m_device->CreateRenderTargetView(inTex.m_texture,
 		&desc,
 		&m_renderTargetView);
@@ -76,6 +91,15 @@ RenderTargetView::init(Device& device,
 	return S_OK;
 }
 
+/**
+ * @brief Prepara el Render Target para el dibujado, limpiando el color y vinculando el Depth Stencil.
+ * * Realiza un Clear de la superficie con el color especificado y establece la RTV y la DSV en
+ * la etapa de Output Merger del pipeline.
+ * * @param deviceContext Contexto del dispositivo para ejecutar comandos de limpieza y vinculación.
+ * @param depthStencilView Vista de profundidad y stencil que se usará en conjunto.
+ * @param numViews Cantidad de vistas a vincular (usualmente 1).
+ * @param ClearColor Arreglo de 4 flotantes (RGBA) que define el color de limpieza.
+ */
 void
 RenderTargetView::render(DeviceContext& deviceContext,
 	DepthStencilView& depthStencilView,
@@ -90,15 +114,22 @@ RenderTargetView::render(DeviceContext& deviceContext,
 		return;
 	}
 
-	// Clear the render target view
+	// Limpiar la vista con el color sólido proporcionado
 	deviceContext.m_deviceContext->ClearRenderTargetView(m_renderTargetView, ClearColor);
 
-	// Config render target view and depth stencil view
+	// Configurar el Output Merger con la RTV y la DSV correspondientes
 	deviceContext.m_deviceContext->OMSetRenderTargets(numViews,
 		&m_renderTargetView,
 		depthStencilView.m_depthStencilView);
 }
 
+/**
+ * @brief Vincula la Render Target View al pipeline sin realizar limpieza ni usar buffer de profundidad.
+ * * Útil para pasadas de renderizado que no requieren pruebas de profundidad o donde la limpieza
+ * se manejó externamente.
+ * * @param deviceContext Contexto del dispositivo.
+ * @param numViews Cantidad de vistas a vincular.
+ */
 void
 RenderTargetView::render(DeviceContext& deviceContext, unsigned int numViews) {
 	if (!deviceContext.m_deviceContext) {
@@ -109,12 +140,17 @@ RenderTargetView::render(DeviceContext& deviceContext, unsigned int numViews) {
 		ERROR("RenderTargetView", "render", "RenderTargetView is nullptr.");
 		return;
 	}
-	// Config render target view
+
+	// Configurar solo el Render Target en el Output Merger (Depth Stencil se establece a nullptr)
 	deviceContext.m_deviceContext->OMSetRenderTargets(numViews,
 		&m_renderTargetView,
 		nullptr);
 }
 
+/**
+ * @brief Libera la interfaz de la Render Target View de la memoria de video.
+ * * Utiliza la macro SAFE_RELEASE para asegurar que el puntero COM se libere correctamente.
+ */
 void RenderTargetView::destroy() {
 	SAFE_RELEASE(m_renderTargetView);
 }
