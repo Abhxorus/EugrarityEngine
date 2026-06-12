@@ -1,17 +1,22 @@
+/**
+ * @file Device.h
+ * @brief Declara la API de Device dentro del subsistema Core.
+ * @ingroup core
+ */
 #pragma once
 #include "Prerequisites.h"
 
-/**
- * @class Device
- * @brief Encapsula un @c ID3D11Device y facilita la creación de recursos gráficos en Direct3D 11.
- *
- * Esta clase actúa como un contenedor del objeto @c ID3D11Device. Expone métodos
- * que encapsulan la creación de vistas, texturas, shaders, estados y buffers
- * para simplificar el manejo del ciclo de vida de los recursos gráficos.
- *
- * @note No administra automáticamente @c ID3D11DeviceContext.
- * @warning Asegurarse de inicializar la instancia con init() antes de crear recursos.
- */
+ /**
+  * @class Device
+  * @brief Encapsula un @c ID3D11Device y facilita la creación de recursos gráficos en Direct3D 11.
+  *
+  * Esta clase actúa como un contenedor del objeto @c ID3D11Device. Expone métodos
+  * que encapsulan la creación de vistas, texturas, shaders, estados y buffers
+  * para simplificar el manejo del ciclo de vida de los recursos gráficos.
+  *
+  * @note No administra automáticamente @c ID3D11DeviceContext.
+  * @warning Asegurarse de inicializar la instancia con init() antes de crear recursos.
+  */
 class
     Device {
 public:

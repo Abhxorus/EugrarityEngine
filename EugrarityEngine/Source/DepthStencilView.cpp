@@ -1,3 +1,8 @@
+/**
+ * @file DepthStencilView.cpp
+ * @brief Implementa la logica de DepthStencilView dentro del subsistema Core.
+ * @ingroup core
+ */
 #include "DepthStencilView.h"
 #include "Device.h"
 #include "DeviceContext.h"
@@ -34,6 +39,42 @@ DepthStencilView::init(Device& device, Texture& depthStencil, DXGI_FORMAT format
 	return S_OK;
 }
 
+HRESULT
+DepthStencilView::init(Device& device,
+	Texture& depthStencil,
+	DXGI_FORMAT format,
+	D3D11_DSV_DIMENSION viewDimension) {
+	if (!device.m_device) {
+		ERROR("DepthStencilView", "init", "Device is null.");
+		return E_POINTER;
+	}
+	if (!depthStencil.m_texture) {
+		ERROR("DepthStencilView", "init", "Texture is null.");
+		return E_FAIL;
+	}
+
+	D3D11_DEPTH_STENCIL_VIEW_DESC descDSV{};
+	descDSV.Format = format;
+	descDSV.ViewDimension = viewDimension;
+
+	if (viewDimension == D3D11_DSV_DIMENSION_TEXTURE2D) {
+		descDSV.Texture2D.MipSlice = 0;
+	}
+
+	HRESULT hr = device.m_device->CreateDepthStencilView(
+		depthStencil.m_texture,
+		&descDSV,
+		&m_depthStencilView
+	);
+
+	if (FAILED(hr)) {
+		ERROR("DepthStencilView", "init",
+			("Failed to create depth stencil view. HRESULT: " + std::to_string(hr)).c_str());
+		return hr;
+	}
+
+	return S_OK;
+}
 
 void
 DepthStencilView::render(DeviceContext& deviceContext) {

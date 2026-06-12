@@ -1,10 +1,16 @@
+ï»¿/**
+ * @file Prerequisites.h
+ * @brief Declara la API de Prerequisites dentro del subsistema Core.
+ * @ingroup core
+ */
 #pragma once
-// Librerias STD
+ // Librerias STD
 #include <string>
 #include <sstream>
 #include <vector>
 #include <windows.h>
-#include <xnamath.h>
+#include <DirectXMath.h>
+using namespace DirectX; // Trae XMMATRIX, XMFLOAT4X4, XMVECTOR, etc. al namespace global (como hacia el viejo xnamath.h)
 #include <thread>
 #include <memory>
 #include <unordered_map>
@@ -13,7 +19,6 @@
 
 // Librerias DirectX
 #include <d3d11.h>
-#include <d3dx11.h>
 #include <d3dcompiler.h>
 #include "Resource.h"
 #include "resource.h"
@@ -53,18 +58,47 @@
 //--------------------------------------------------------------------------------------
 struct SimpleVertex
 {
-    XMFLOAT3 Pos;
-    XMFLOAT2 Tex;
+    EU::Vector3 Position;
+    EU::Vector3 Normal;
+    EU::Vector3 Tangent;
+    EU::Vector3 Bitangent;
+    EU::Vector2 TextureCoordinate;
 };
+
+struct
+    SkyboxVertex {
+    float x, y, z;
+};
+
 
 struct CBNeverChanges
 {
     XMMATRIX mView;
 };
 
+struct CBSkybox
+{
+    XMMATRIX mviewProj;
+};
+
 struct CBChangeOnResize
 {
     XMMATRIX mProjection;
+};
+
+// Constant buffer used in the vertex and pixel shaders.  Align to
+// 16?bytes as required by Direct3D constant buffers.
+struct CBMain
+{
+    //XMFLOAT4X4 World;
+    XMFLOAT4X4 View;
+    XMFLOAT4X4 Projection;
+    EU::Vector3 CameraPos;
+    float pad0;
+    EU::Vector3 LightDir;
+    float pad1;
+    EU::Vector3 LightColor;
+    float pad2;
 };
 
 struct CBChangesEveryFrame
@@ -91,8 +125,8 @@ enum ShaderType {
 enum
     ComponentType {
     NONE = 0,     ///< Tipo de componente no especificado.
-    TRANSFORM = 1,///< Componente de transformación.
+    TRANSFORM = 1,///< Componente de transformaciï¿½n.
     MESH = 2,     ///< Componente de malla.
     MATERIAL = 3,  ///< Componente de material.
-    HIERARCHY = 4 ///< Componente de jerarquía.
+    HIERARCHY = 4 ///< Componente de jerarquï¿½a.
 };

@@ -1,6 +1,7 @@
 #include "ShaderProgram.h"
 #include "Device.h"
 #include "DeviceContext.h"
+#include <D3DX11.h>
 
 
 HRESULT

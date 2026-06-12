@@ -72,6 +72,12 @@
     <Filter Include="Imgui\vulcan">
       <UniqueIdentifier>{c6d35b0b-5356-4591-a3da-cdab05edab76}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Include\Rendering">
+      <UniqueIdentifier>{76109a78-d1fa-4a99-bb17-8da9d9031a0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Rendering">
+      <UniqueIdentifier>{40c87e4c-2f4a-4d7f-bc0b-d303f50537af}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EugrarityEngine.cpp">
@@ -154,6 +160,33 @@
     </ClCompile>
     <ClCompile Include="Imgui\imgui-docking\backends\imgui_impl_dx11.cpp">
       <Filter>Imgui\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="Include\Rendering\DeferredRenderer.cpp">
+      <Filter>Source\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Skybox.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RasterizerState.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rendering\MaterialInstance.cpp">
+      <Filter>Source\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\EditorViewportPass.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DepthStencilState.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rendering\ForwardRenderer.cpp">
+      <Filter>Source\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rendering\RenderPipeline.cpp">
+      <Filter>Source\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rendering\RenderScene.cpp">
+      <Filter>Source\Rendering</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -329,6 +362,48 @@
     </ClInclude>
     <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_dx11.h">
       <Filter>Imgui\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Rendering\ISceneRender.h">
+      <Filter>Include\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Rendering\RenderType.h">
+      <Filter>Include\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Rendering\RenderScene.h">
+      <Filter>Include\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Rendering\MaterialInstance.h">
+      <Filter>Include\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Rendering\ForwardRenderer.h">
+      <Filter>Include\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\EngineUtilities\Utilities\EditorViewportPass.h">
+      <Filter>Include\EngineUtilities\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\RasterizerState.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\DepthStencilState.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Rendering\DeferredRenderer.h">
+      <Filter>Include\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\EngineUtilities\Utilities\Skybox.h">
+      <Filter>Include\EngineUtilities\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\EngineUtilities\Utilities\LayoutBuilder.h">
+      <Filter>Include\EngineUtilities\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Rendering\Mesh.h">
+      <Filter>Include\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Rendering\Material.h">
+      <Filter>Include\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Rendering\RenderPipeline.h">
+      <Filter>Include\Rendering</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

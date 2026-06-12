@@ -1,7 +1,12 @@
+/**
+ * @file RenderTargetView.h
+ * @brief Declara la API de RenderTargetView dentro del subsistema Core.
+ * @ingroup core
+ */
 #pragma once
 #include "Prerequisites.h"
 
-// Forward Declarations
+ // Forward Declarations
 class Device;
 class DeviceContext;
 class Texture;

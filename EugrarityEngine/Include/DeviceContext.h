@@ -1,3 +1,8 @@
+/**
+ * @file DeviceContext.h
+ * @brief Declara la API de DeviceContext dentro del subsistema Core.
+ * @ingroup core
+ */
 #pragma once
 #include "Prerequisites.h"
 

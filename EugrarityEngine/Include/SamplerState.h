@@ -1,3 +1,8 @@
+/**
+ * @file SamplerState.h
+ * @brief Declara la API de SamplerState dentro del subsistema Core.
+ * @ingroup core
+ */
 #pragma once
 #include "Prerequisites.h"
 
