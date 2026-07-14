@@ -1,6 +1,8 @@
 #pragma once
 #include "Prerequisites.h"
 
+class BaseApp;
+
 class
 	Window {
 public:
@@ -8,7 +10,7 @@ public:
 	~Window() = default;
 
 	HRESULT
-		init(HINSTANCE hInstance, int nCmdShow, WNDPROC wndproc);
+		init(HINSTANCE hInstance, int nCmdShow, WNDPROC wndproc, BaseApp* app);
 
 	void
 		update();

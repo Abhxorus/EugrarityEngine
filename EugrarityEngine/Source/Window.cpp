@@ -3,7 +3,7 @@
 #include "BaseApp.h"
 
 HRESULT
-Window::init(HINSTANCE hInstance, int nCmdShow, WNDPROC wndproc) {
+Window::init(HINSTANCE hInstance, int nCmdShow, WNDPROC wndproc, BaseApp* app) {
     // Store  instance of the class
     m_hInst = hInstance;
 

@@ -206,3 +206,9 @@ void SceneGraph::render(DeviceContext& deviceContext) {
 		}
 	}
 }
+
+void SceneGraph::gatherRenderScene(RenderScene& renderScene, const Camera& camera) {
+	// Aquí debes agregar la lógica para enviar tus entidades al renderScene.
+	// Por ejemplo, iterar sobre m_entities y agregarlas a las listas de renderScene
+	// dependiendo de si son opacas, transparentes, luces, etc.
+}

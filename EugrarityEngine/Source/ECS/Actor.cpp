@@ -166,3 +166,15 @@ Actor::setMesh(Device& device, std::vector<MeshComponent> meshes) {
 		}
 	}
 }
+void Actor::renderForSkybox(DeviceContext& deviceContext) {
+	deviceContext.IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	// Solo necesitamos enlazar los buffers y dibujar, 
+	// sin aplicar los constant buffers de transformación ni texturas, 
+	// ya que el Skybox maneja su propio shader y transformaciones.
+	for (unsigned int i = 0; i < m_meshes.size(); i++) {
+		m_vertexBuffers[i].render(deviceContext, 0, 1);
+		m_indexBuffers[i].render(deviceContext, 0, 1, false, DXGI_FORMAT_R32_UINT);
+		deviceContext.DrawIndexed(m_meshes[i].m_numIndex, 0, 0);
+	}
+}

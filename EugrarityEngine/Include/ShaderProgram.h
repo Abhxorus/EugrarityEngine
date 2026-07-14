@@ -4,6 +4,7 @@
 
 class Device;
 class DeviceContext;
+class LayoutBuilder;
 
 /**
  * @class ShaderProgram
@@ -41,9 +42,7 @@ public:
      * @post Si retorna @c S_OK, los punteros a shaders y el input layout serán válidos.
      */
     HRESULT
-        init(Device& device,
-            const std::string& fileName,
-            std::vector<D3D11_INPUT_ELEMENT_DESC> Layout);
+        init(Device& device, const std::string& fileName, LayoutBuilder layoutBuilder);
 
     /**
      * @brief Actualiza parámetros internos de los shaders.
@@ -98,8 +97,7 @@ public:
      * @return @c S_OK si fue exitoso; código @c HRESULT en caso de error.
      */
     HRESULT
-        CreateInputLayout(Device& device,
-            std::vector<D3D11_INPUT_ELEMENT_DESC> Layout);
+        CreateInputLayout(Device& device, LayoutBuilder);
 
     /**
      * @brief Crea un shader (Vertex o Pixel) a partir del archivo establecido en @c m_shaderFileName.

@@ -66,7 +66,7 @@ Skybox::init(Device& device, DeviceContext* deviceContext, Texture& cubemap) {
 
 	HRESULT hr = S_OK;
 	// Create the Shader Program
-	hr = m_shaderProgram.init(device, "Skybox.hlsl", builder.Get());
+	hr = m_shaderProgram.init(device, "Skybox.hlsl", builder);
 	if (FAILED(hr)) {
 		ERROR("Skybox", "init",
 			("Failed to initialize ShaderProgram. HRESULT: " + std::to_string(hr)).c_str());
@@ -132,7 +132,7 @@ Skybox::render(DeviceContext& deviceContext) {
 	m_skyboxTexture.render(deviceContext, 10, 1);
 
 	// 5) Asegura IA (topology + VB/IB) antes del DrawIndexed
-	m_skybox->render(deviceContext);
+	m_skybox->renderForSkybox(deviceContext);
 
 	// 3) Limpia t0 para evitar mismatch por shaders 2D que usen t0
 	ID3D11ShaderResourceView* nullSRV[1] = { nullptr };

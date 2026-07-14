@@ -694,7 +694,7 @@ DeferredRenderer::createShadowResources(Device& device) {
 		.Add("BITANGENT", DXGI_FORMAT_R32G32B32_FLOAT)
 		.Add("TEXCOORD", DXGI_FORMAT_R32G32_FLOAT);
 
-	hr = m_shadowShader.init(device, "ShadowMap.hlsl", builder.Get());
+	hr = m_shadowShader.init(device, "ShadowMap.hlsl", builder);
 	if (FAILED(hr)) {
 		return hr;
 	}
@@ -795,7 +795,7 @@ DeferredRenderer::createLightingResources(Device& device) {
 		.Add("BITANGENT", DXGI_FORMAT_R32G32B32_FLOAT)
 		.Add("TEXCOORD", DXGI_FORMAT_R32G32_FLOAT);
 
-	HRESULT hr = m_gBufferShader.init(device, "DeferredGBuffer.hlsl", geometryBuilder.Get());
+	HRESULT hr = m_gBufferShader.init(device, "DeferredGBuffer.hlsl", geometryBuilder);
 	if (FAILED(hr)) {
 		return hr;
 	}
@@ -807,7 +807,7 @@ DeferredRenderer::createLightingResources(Device& device) {
 		.Add("BITANGENT", DXGI_FORMAT_R32G32B32_FLOAT)
 		.Add("TEXCOORD", DXGI_FORMAT_R32G32_FLOAT);
 
-	hr = m_deferredLightingShader.init(device, "DeferredLighting.hlsl", fullscreenBuilder.Get());
+	hr = m_deferredLightingShader.init(device, "DeferredLighting.hlsl", fullscreenBuilder);
 	if (FAILED(hr)) {
 		return hr;
 	}

@@ -458,7 +458,7 @@ ForwardRenderer::createShadowResources(Device& device) {
 		.Add("BITANGENT", DXGI_FORMAT_R32G32B32_FLOAT)
 		.Add("TEXCOORD", DXGI_FORMAT_R32G32_FLOAT);
 
-	hr = m_shadowShader.init(device, "ShadowMap.hlsl", builder.Get());
+	hr = m_shadowShader.init(device, "ShadowMap.hlsl", builder);
 	if (FAILED(hr)) {
 		return hr;
 	}

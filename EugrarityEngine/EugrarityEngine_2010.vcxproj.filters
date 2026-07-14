@@ -405,5 +405,11 @@
     <ClInclude Include="Include\Rendering\RenderPipeline.h">
       <Filter>Include\Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="Include\ECS\LightComponent.h">
+      <Filter>Include\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ECS\MeshRendererComponent.h">
+      <Filter>Include\ECS</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

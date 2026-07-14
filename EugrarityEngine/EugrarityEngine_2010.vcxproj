@@ -481,6 +481,8 @@
     <ClInclude Include="Include\ECS\Actor.h" />
     <ClInclude Include="Include\ECS\Component.h" />
     <ClInclude Include="Include\ECS\Entity.h" />
+    <ClInclude Include="Include\ECS\LightComponent.h" />
+    <ClInclude Include="Include\ECS\MeshRendererComponent.h" />
     <ClInclude Include="Include\ECS\Transform.h" />
     <ClInclude Include="Include\EngineUtilities\GUI\GUI.h" />
     <ClInclude Include="Include\EngineUtilities\Matrix\Matrix2x2.h" />

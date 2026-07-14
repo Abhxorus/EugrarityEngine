@@ -86,9 +86,9 @@ SwapChain::init(Device& device,
     sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
     sd.OutputWindow = window.m_hWnd;
     sd.Windowed = TRUE;
-    sd.SwapEffect = DXGI_SWAP_EFFECT_SEQUENTIAL;//SE CAMBIO EL _DISCARD POR _SEQUENTIAL
-    sd.SampleDesc.Count = 1;//CAMBIOS POR AQUI m_sampleCount;
-    sd.SampleDesc.Quality = 0;//CAMBIOS POR AQUI m_qualityLevels - 1;
+    sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;//SE CAMBIO EL _DISCARD POR _SEQUENTIAL
+    sd.SampleDesc.Count = m_sampleCount;//CAMBIOS POR AQUI m_sampleCount;
+    sd.SampleDesc.Quality = m_qualityLevels - 1;//CAMBIOS POR AQUI m_qualityLevels - 1;
 
     // Get the DXGI factory
     hr = device.m_device->QueryInterface(__uuidof(IDXGIDevice), (void**)&m_dxgiDevice);
@@ -162,4 +162,51 @@ SwapChain::present() {
     else {
         ERROR("SwapChain", "present", "Swap chain is not initialized.");
     }
+}
+
+HRESULT
+SwapChain::resizeBuffers(unsigned int width, unsigned int height) {
+    if (!m_swapChain) {
+        ERROR("SwapChain", "resizeBuffers", "Swap chain is not initialized.");
+        return E_POINTER;
+    }
+
+    // 0,0 y DXGI_FORMAT_UNKNOWN = mantener cantidad de buffers y formato actual
+    HRESULT hr = m_swapChain->ResizeBuffers(
+        0,
+        width,
+        height,
+        DXGI_FORMAT_UNKNOWN,
+        0
+    );
+
+    if (FAILED(hr)) {
+        ERROR("SwapChain", "resizeBuffers",
+            ("ResizeBuffers failed. HRESULT: " + std::to_string(hr)).c_str());
+        return hr;
+    }
+
+    return S_OK;
+}
+
+HRESULT SwapChain::getBackBuffer(Texture& backBuffer)
+{
+    if (!m_swapChain) {
+        ERROR("SwapChain", "getBackBuffer", "Swap chain is not initialized.");
+        return E_POINTER;
+    }
+
+    // IMPORTANTE: backBuffer debe ser un ID3D11Texture2D* internamente
+    HRESULT hr = m_swapChain->GetBuffer(
+        0, __uuidof(ID3D11Texture2D),
+        reinterpret_cast<void**>(&backBuffer)
+    );
+
+    if (FAILED(hr)) {
+        ERROR("SwapChain", "getBackBuffer",
+            ("Failed to get back buffer. HRESULT: " + std::to_string(hr)).c_str());
+        return hr;
+    }
+
+    return S_OK;
 }

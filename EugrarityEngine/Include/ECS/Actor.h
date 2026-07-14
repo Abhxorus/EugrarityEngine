@@ -5,10 +5,10 @@
 #include "Texture.h"
 #include "Transform.h"
 #include "SamplerState.h"
-//#include "Rasterizer.h"
+#include "RasterizerState.h"
 //#include "BlendState.h"
 #include "ShaderProgram.h"
-//#include "DepthStencilState.h"
+#include "DepthStencilState.h"
 
 class Device;
 class DeviceContext;
@@ -75,6 +75,9 @@ public:
 	 */
 	void
 		render(DeviceContext& deviceContext) override;
+
+	void
+		renderForSkybox(DeviceContext& deviceContext);
 
 	/**
 	 * @brief Libera todos los recursos asociados al actor.
@@ -156,7 +159,7 @@ private:
 	ShaderProgram m_shaderShadow;          ///< Shader program usado para renderizar sombras.
 	Buffer m_shaderBuffer;                 ///< Buffer auxiliar para datos de sombras.
 	//BlendState m_shadowBlendState;         ///< Estado de blending específico para sombras.
-	//DepthStencilState m_shadowDepthStencilState; ///< Estado de profundidad/esténcil para sombras.
+	DepthStencilState m_shadowDepthStencilState; ///< Estado de profundidad/esténcil para sombras.
 	CBChangesEveryFrame m_cbShadow;        ///< Constant buffer específico de sombras.
 
 	XMFLOAT4 m_LightPos;                   ///< Posición de la luz usada para proyectar sombras.
