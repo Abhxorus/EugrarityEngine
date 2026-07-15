@@ -3,6 +3,11 @@
 #include "ECS\Entity.h"
 #include "ECS\Transform.h"
 #include "DeviceContext.h"
+#include "ECS/Actor.h"
+#include "ECS/LightComponent.h"
+#include "Rendering/RenderScene.h"
+#include "EngineUtilities/Utilities/Camera.h"
+#include "ECS/MeshRendererComponent.h"
 
 void SceneGraph::init() {
 	m_entities.clear();
@@ -208,7 +213,51 @@ void SceneGraph::render(DeviceContext& deviceContext) {
 }
 
 void SceneGraph::gatherRenderScene(RenderScene& renderScene, const Camera& camera) {
-	// Aquí debes agregar la lógica para enviar tus entidades al renderScene.
-	// Por ejemplo, iterar sobre m_entities y agregarlas a las listas de renderScene
-	// dependiendo de si son opacas, transparentes, luces, etc.
+	const EU::Vector3 camPos = camera.getPosition();
+	XMVECTOR camPosVec = XMVectorSet(camPos.x, camPos.y, camPos.z, 0.0f);
+
+	for (Entity* e : m_entities) {
+		if (!e) continue;
+
+		// --- Luces ---
+		auto lightComponent = e->getComponent<LightComponent>();
+		if (lightComponent) {
+			renderScene.directionalLights.push_back(lightComponent->getLightData());
+		}
+
+		// --- Geometria ---
+		auto meshRenderer = e->getComponent<MeshRendererComponent>();
+		if (!meshRenderer || !meshRenderer->isVisible()) continue;
+
+		Mesh* mesh = meshRenderer->getMesh();
+		if (!mesh || mesh->getSubmeshes().empty()) continue;
+
+		auto transform = e->getComponent<Transform>();
+		if (!transform) continue;
+
+		RenderObject renderObject;
+		renderObject.mesh = mesh;
+		renderObject.materialInstance = meshRenderer->getMaterialInstance();
+		renderObject.materialInstances = meshRenderer->getMaterialInstances();
+		renderObject.castShadow = meshRenderer->canCastShadow();
+		renderObject.world = transform->matrix; // root: local == world
+
+		XMVECTOR objPos = renderObject.world.r[3];
+		renderObject.distanceToCamera =
+			XMVectorGetX(XMVector3Length(XMVectorSubtract(objPos, camPosVec)));
+
+		const Material* material = renderObject.materialInstance
+			? renderObject.materialInstance->getMaterial()
+			: (!renderObject.materialInstances.empty() && renderObject.materialInstances[0]
+				? renderObject.materialInstances[0]->getMaterial()
+				: nullptr);
+		renderObject.transparent = material && material->getDomain() == MaterialDomain::Transparent;
+
+		if (renderObject.transparent) {
+			renderScene.transparentObjects.push_back(renderObject);
+		}
+		else {
+			renderScene.opaqueObjects.push_back(renderObject);
+		}
+	}
 }

@@ -125,7 +125,7 @@ BaseApp::init() {
 		m_window.m_height,
 		DXGI_FORMAT_D24_UNORM_S8_UINT,
 		D3D11_BIND_DEPTH_STENCIL,
-		4,
+		1,
 		0);
 
 	if (FAILED(hr)) {
@@ -176,47 +176,49 @@ BaseApp::init() {
 	m_sciFiToad = EU::MakeShared<Actor>(m_device);
 
 	if (!m_cyberGun.isNull()) {
-		m_model = new Model3D("tu_modelo.fbx", ModelType::FBX);
-		if (!m_model || !m_model->load("tu_modelo.fbx")) {
-			ERROR("Main", "InitDevice", "Failed to load CyberGun model.");
+		// Subimos un nivel desde x64 y entramos a Assets
+		std::string modelPath = "C:/Users/Usuario/Documents/GitHub/EugrarityEngine/EugrarityEngine/bin/Assets/Nave.fbx";
+		m_model = new Model3D(modelPath, ModelType::FBX);
+		if (!m_model || !m_model->load(modelPath)) {
+			ERROR("Main", "InitDevice", "Failed to load Nave model.");
 			return E_FAIL;
 		}
 
-		hr = m_AlbedoSRV.init(m_device, "Textures/CyberGun/base.tga", PNG);
+		// Asegúrate de cambiar la extensión a .jpg y el flag a JPG si tus archivos no son PNG
+		hr = m_AlbedoSRV.init(m_device, "C:/Users/Usuario/Documents/GitHub/EugrarityEngine/EugrarityEngine/bin/Assets/textures/E-45_col", JPG);
 		if (FAILED(hr)) {
-			ERROR("Main", "InitDevice",
-				("Failed to initialize DrakePistol Texture. HRESULT: " + std::to_string(hr)).c_str());
+			ERROR("Main", "InitDevice", "Failed to initialize Albedo Texture.");
 			return hr;
 		}
-		hr = m_MetallicSRV.init(m_device, "Textures/CyberGun/metallic.tga", PNG);
+
+		hr = m_NormalSRV.init(m_device, "C:/Users/Usuario/Documents/GitHub/EugrarityEngine/EugrarityEngine/bin/Assets/textures/E-45-nor_1", JPG);
 		if (FAILED(hr)) {
-			ERROR("Main", "InitDevice",
-				("Failed to initialize DrakePistol Texture. HRESULT: " + std::to_string(hr)).c_str());
+			ERROR("Main", "InitDevice", "Failed to initialize Normal Texture.");
 			return hr;
 		}
-		hr = m_RoughnessSRV.init(m_device, "Textures/CyberGun/roughness.tga", PNG);
+
+		hr = m_MetallicSRV.init(m_device, "C:/Users/Usuario/Documents/GitHub/EugrarityEngine/EugrarityEngine/bin/Assets/textures/E-45_REF 1", JPG);
 		if (FAILED(hr)) {
-			ERROR("Main", "InitDevice",
-				("Failed to initialize DrakePistol Texture. HRESULT: " + std::to_string(hr)).c_str());
+			ERROR("Main", "InitDevice", "Failed to initialize Metallic Texture.");
 			return hr;
 		}
-		hr = m_AOSRV.init(m_device, "Textures/CyberGun/ao.tga", PNG);
+
+		hr = m_RoughnessSRV.init(m_device, "C:/Users/Usuario/Documents/GitHub/EugrarityEngine/EugrarityEngine/bin/Assets/textures/E-45_REF 1", JPG);
 		if (FAILED(hr)) {
-			ERROR("Main", "InitDevice",
-				("Failed to initialize DrakePistol Texture. HRESULT: " + std::to_string(hr)).c_str());
+			ERROR("Main", "InitDevice", "Failed to initialize Roughness Texture.");
 			return hr;
 		}
-		hr = m_NormalSRV.init(m_device, "Textures/CyberGun/normal.tga", PNG);
+
+		hr = m_AOSRV.init(m_device, "C:/Users/Usuario/Documents/GitHub/EugrarityEngine/EugrarityEngine/bin/Assets/textures/E-45_col_2", JPG);
 		if (FAILED(hr)) {
-			ERROR("Main", "InitDevice",
-				("Failed to initialize DrakePistol Texture. HRESULT: " + std::to_string(hr)).c_str());
+			ERROR("Main", "InitDevice", "Failed to initialize AO Texture.");
 			return hr;
 		}
-		HRESULT emissiveHr = m_EmissiveSRV.init(m_device, "Textures/CyberGun/Emissive.tga", PNG);
-		if (FAILED(emissiveHr)) {
-			MESSAGE("Main", "InitDevice", "CyberGun emissive texture not found. Continuing without emissive map.");
-		}
-		m_cyberGun->setName("CyberGun");
+
+		// Omitimos el Emissive si no hay una textura para ello en la carpeta
+		m_EmissiveSRV.destroy();
+
+		m_cyberGun->setName("Nave");
 		m_actors.push_back(m_cyberGun);
 
 		m_cyberGun->getComponent<Transform>()->setTransform(EU::Vector3(2.0f, -1.90f, 11.60f),
@@ -227,7 +229,7 @@ BaseApp::init() {
 		ERROR("Main", "InitDevice", "Failed to create cyber Gun Actor.");
 		return E_FAIL;
 	}
-
+	/*
 	if (!m_drakefirePistol.isNull()) {
 		m_drakefireModel = new Model3D("Models/drakefire_pistol_low_OBJ/drakefire_pistol_low.obj", ModelType::OBJ);
 		if (!m_drakefireModel || !m_drakefireModel->load("Models/drakefire_pistol_low_OBJ/drakefire_pistol_low.obj")) {
@@ -360,7 +362,7 @@ BaseApp::init() {
 	else {
 		ERROR("Main", "InitDevice", "Failed to create Sci-Fi Toad Actor.");
 		return E_FAIL;
-	}
+	}*/
 
 	// Store the Actors in the Scene Graph
 	for (auto& actor : m_actors) {
@@ -393,6 +395,7 @@ BaseApp::init() {
 
 	m_camera.setLens(XM_PIDIV4, m_window.m_width / (float)m_window.m_height, 0.01f, 100.0f);
 	m_camera.setPosition(0.0f, 3.0f, -6.0f);
+	m_camera.lookAt(EU::Vector3(0.0f, 3.0f, -6.0f), EU::Vector3(2.0f, -1.90f, 11.60f), EU::Vector3(0.0f, 1.0f, 0.0f));
 
 	m_constantBufferStruct.LightColor = EU::Vector3(1.0f, 1.0f, 1.0f);
 	m_constantBufferStruct.LightDir = EU::Vector3(-0.20f, -1.0f, 1.0f);
@@ -538,7 +541,7 @@ BaseApp::init() {
 		submesh.materialSlot = 0;
 		m_cyberGunRenderMesh.getSubmeshes().push_back(std::move(submesh));
 	}
-
+	/*
 	m_drakefireRenderMesh.destroy();
 	for (const MeshComponent& meshComponent : m_drakefireModel->GetMeshes()) {
 		Submesh submesh{};
@@ -598,7 +601,7 @@ BaseApp::init() {
 		}
 		m_toadRenderMesh.getSubmeshes().push_back(std::move(submesh));
 	}
-
+	*/
 	EU::TSharedPointer<MeshRendererComponent> meshRenderer = m_cyberGun->getComponent<MeshRendererComponent>();
 	if (!meshRenderer) {
 		meshRenderer = EU::MakeShared<MeshRendererComponent>();
@@ -608,7 +611,7 @@ BaseApp::init() {
 	meshRenderer->setMaterialInstance(&m_cyberGunMaterial);
 	meshRenderer->setVisible(true);
 	meshRenderer->setCastShadow(true);
-
+	/*
 	EU::TSharedPointer<MeshRendererComponent> drakefireMeshRenderer = m_drakefirePistol->getComponent<MeshRendererComponent>();
 	if (!drakefireMeshRenderer) {
 		drakefireMeshRenderer = EU::MakeShared<MeshRendererComponent>();
@@ -628,7 +631,7 @@ BaseApp::init() {
 	toadMeshRenderer->setMaterialInstances({ &m_toadMaterial, &m_toadGlassMaterial, &m_toadHeadMaterial });
 	toadMeshRenderer->setVisible(true);
 	toadMeshRenderer->setCastShadow(true);
-
+	*/
 	m_directionalLightActor = EU::MakeShared<Actor>(m_device);
 	if (!m_directionalLightActor.isNull()) {
 		m_directionalLightActor->setName("Light Actor 1");

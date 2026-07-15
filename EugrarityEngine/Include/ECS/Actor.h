@@ -9,6 +9,9 @@
 //#include "BlendState.h"
 #include "ShaderProgram.h"
 #include "DepthStencilState.h"
+#include "Rendering/Mesh.h"
+#include "Rendering/Material.h"
+#include "Rendering/MaterialInstance.h"
 
 class Device;
 class DeviceContext;
@@ -143,11 +146,17 @@ public:
 	void
 		renderShadow(DeviceContext& deviceContext);
 
+	Mesh& getRenderMesh() { return m_renderMesh; }
+	MaterialInstance* getMaterialInstance() { return &m_materialInstance; }
+
 private:
 	std::vector<MeshComponent> m_meshes;   ///< Conjunto de componentes de malla del actor.
 	std::vector<Texture> m_textures;       ///< Texturas aplicadas al actor.
 	std::vector<Buffer> m_vertexBuffers;   ///< Buffers de vértices asociados a las mallas.
 	std::vector<Buffer> m_indexBuffers;    ///< Buffers de índices asociados a las mallas.
+	Mesh m_renderMesh;
+	Material m_material;
+	MaterialInstance m_materialInstance;
 
 	//BlendState m_blendstate;               ///< Estado de blending usado por el actor.
 	//Rasterizer m_rasterizer;               ///< Estado de rasterización usado por el actor.

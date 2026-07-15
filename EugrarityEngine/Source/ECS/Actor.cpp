@@ -140,31 +140,48 @@ Actor::destroy() {
 	m_sampler.destroy();
 }
 
-void
-Actor::setMesh(Device& device, std::vector<MeshComponent> meshes) {
-	m_meshes = meshes;
-	HRESULT hr;
-	for (auto& mesh : m_meshes) {
-		// Crear vertex buffer
+void Actor::setMesh(Device& device, std::vector<MeshComponent> meshes) {
+	// Limpiamos los buffers para asegurar sincronización
+	m_meshes.clear();
+	m_vertexBuffers.clear();
+	m_indexBuffers.clear();
+
+	std::vector<Submesh>& submeshes = m_renderMesh.getSubmeshes();
+	submeshes.clear();
+
+	for (auto& mesh : meshes) {
 		Buffer vertexBuffer;
-		hr = vertexBuffer.init(device, mesh, D3D11_BIND_VERTEX_BUFFER);
+		HRESULT hr = vertexBuffer.init(device, mesh, D3D11_BIND_VERTEX_BUFFER);
 		if (FAILED(hr)) {
 			ERROR("Actor", "setMesh", "Failed to create new vertexBuffer");
-		}
-		else {
-			m_vertexBuffers.push_back(vertexBuffer);
+			continue;
 		}
 
-		// Crear index buffer
 		Buffer indexBuffer;
 		hr = indexBuffer.init(device, mesh, D3D11_BIND_INDEX_BUFFER);
 		if (FAILED(hr)) {
 			ERROR("Actor", "setMesh", "Failed to create new indexBuffer");
+			continue;
 		}
-		else {
-			m_indexBuffers.push_back(indexBuffer);
-		}
+
+		m_meshes.push_back(mesh);
+		m_vertexBuffers.push_back(vertexBuffer);
+		m_indexBuffers.push_back(indexBuffer);
+
+		Submesh submesh;
+		submesh.vertexBuffer = vertexBuffer;
+		submesh.indexBuffer = indexBuffer;
+		submesh.indexCount = mesh.m_numIndex;
+		submesh.startIndex = 0;
+		submesh.materialSlot = 0;
+		submesh.localTransform = mesh.m_localTransform;
+		submeshes.push_back(submesh);
 	}
+
+	// Material básico por ahora: opaco, usando el shader de G-Buffer.
+	m_material.setDomain(MaterialDomain::Opaque);
+	m_materialInstance.setMaterial(&m_material);
+	
 }
 void Actor::renderForSkybox(DeviceContext& deviceContext) {
 	deviceContext.IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);

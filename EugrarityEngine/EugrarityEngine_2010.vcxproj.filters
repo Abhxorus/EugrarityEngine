@@ -101,9 +101,6 @@
     <ClCompile Include="Source\SamplerState.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\RenderTargetView.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="Source\InputLayout.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -187,6 +184,9 @@
     </ClCompile>
     <ClCompile Include="Source\Rendering\RenderScene.cpp">
       <Filter>Source\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RenderTargetView.cpp">
+      <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -10,6 +10,7 @@
 #include <fstream>
 #include <unordered_map>
 #include <sstream>
+#include <algorithm>
 
 namespace {
 	constexpr uint32_t kModelCacheMagic = 0x48564D57; // WMVH
@@ -110,8 +111,14 @@ bool Model3D::init()
 
 	const std::string cachePath = GetBinaryCachePath();
 	if (IsBinaryCacheUpToDate(m_filePath, cachePath) && LoadBinaryCache(cachePath)) {
-		g_modelCache[m_filePath] = ModelCacheEntry{ m_meshes, textureFileNames };
-		return true;
+		const bool hasGeometry = !m_meshes.empty() &&
+			std::any_of(m_meshes.begin(), m_meshes.end(),
+				[](const MeshComponent& m) { return m.m_numVertex > 0; });
+		if (hasGeometry) {
+			g_modelCache[m_filePath] = ModelCacheEntry{ m_meshes, textureFileNames };
+			return true;
+		}
+		// caché corrupta/vacía: cae al flujo de reimportación normal de abajo
 	}
 
 	const auto begin = std::chrono::high_resolution_clock::now();
@@ -505,6 +512,7 @@ void
 Model3D::ProcessFBXMesh(FbxNode* node) {
 	FbxMesh* mesh = node->GetMesh();
 	if (!mesh) return;
+	if (mesh->GetPolygonCount() == 0) return;
 
 	if (mesh->GetElementNormalCount() == 0)
 		mesh->GenerateNormals(true, true);
