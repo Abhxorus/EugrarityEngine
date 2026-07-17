@@ -393,8 +393,8 @@ BaseApp::init() {
 		return hr;
 	}
 
-	m_camera.setLens(XM_PIDIV4, m_window.m_width / (float)m_window.m_height, 0.01f, 100.0f);
-	m_camera.setPosition(0.0f, 3.0f, -6.0f);
+	m_camera.setLens(XM_PIDIV4, m_window.m_width / (float)m_window.m_height, 0.01f, 500.0f);
+	m_camera.setPosition(0.0f, 10.0f, -40.0f);
 	m_camera.lookAt(EU::Vector3(0.0f, 3.0f, -6.0f), EU::Vector3(2.0f, -1.90f, 11.60f), EU::Vector3(0.0f, 1.0f, 0.0f));
 
 	m_constantBufferStruct.LightColor = EU::Vector3(1.0f, 1.0f, 1.0f);
