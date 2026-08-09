@@ -198,6 +198,12 @@ SceneGraph::updateWorldRecursive(Entity* node, const XMMATRIX& parentWorld) {
 	// World = Local * ParentWorld
 	auto worldMatrix = t->matrix * parentWorld;
 
+	// BUGFIX: antes worldMatrix solo se pasaba hacia los hijos y nunca se
+	// guardaba para el nodo actual, asi que no habia forma de que
+	// gatherRenderScene leyera la transformacion final (con jerarquia
+	// aplicada) de un actor. La guardamos en el propio Transform.
+	t->worldMatrix = worldMatrix;
+
 	for (Entity* c : h->m_children) {
 		updateWorldRecursive(c, worldMatrix);
 	}
@@ -240,7 +246,11 @@ void SceneGraph::gatherRenderScene(RenderScene& renderScene, const Camera& camer
 		renderObject.materialInstance = meshRenderer->getMaterialInstance();
 		renderObject.materialInstances = meshRenderer->getMaterialInstances();
 		renderObject.castShadow = meshRenderer->canCastShadow();
-		renderObject.world = transform->matrix; // root: local == world
+		// BUGFIX: usar worldMatrix (ya compuesta con la jerarquia en
+		// updateWorldRecursive) en vez de matrix (solo local). Para un actor
+		// raiz da el mismo resultado, pero permite que actores hijos hereden
+		// correctamente el transform de su padre.
+		renderObject.world = transform->worldMatrix;
 
 		XMVECTOR objPos = renderObject.world.r[3];
 		renderObject.distanceToCamera =

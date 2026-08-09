@@ -314,7 +314,7 @@ GUI::init(Window& window, Device& device, DeviceContext& deviceContext) {
 		style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 	}
 
-	appleLiquidStyle(0.72f, ImVec4(0.0f, 0.515f, 1.0f, 1.0f));
+	blenderStyle(); // antes: appleLiquidStyle(0.72f, ImVec4(0.0f, 0.515f, 1.0f, 1.0f));
 
 	// Setup Platform/Renderer backends
 	ImGui_ImplWin32_Init(window.m_hWnd);
@@ -567,6 +567,109 @@ GUI::appleLiquidStyle(float opacity, ImVec4 accent) {
 	colors[ImGuiCol_NavWindowingHighlight] = ImVec4(1, 1, 1, 0.30f);
 	colors[ImGuiCol_NavWindowingDimBg] = ImVec4(0, 0, 0, 0.20f);
 	colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0, 0, 0, 0.35f);
+}
+
+// Tema plano, opaco y compacto inspirado en el editor de Blender: esquinas
+// casi rectas, paneles grafito solidos (sin transparencia tipo "glass"),
+// espaciado denso, y un unico acento (naranja por defecto, igual que la
+// seleccion de Blender) para checkboxes/sliders/tabs activos/seleccion.
+void
+GUI::blenderStyle(ImVec4 accent) {
+	ImGuiStyle& style = ImGui::GetStyle();
+	ImVec4* colors = style.Colors;
+
+	// Geometria recta, propia de una herramienta de produccion (no "glass")
+	style.WindowRounding = 4.0f;
+	style.ChildRounding = 3.0f;
+	style.PopupRounding = 3.0f;
+	style.FrameRounding = 2.0f;
+	style.GrabRounding = 2.0f;
+	style.ScrollbarRounding = 2.0f;
+	style.TabRounding = 3.0f;
+
+	style.WindowBorderSize = 1.0f;
+	style.FrameBorderSize = 1.0f;
+	style.PopupBorderSize = 1.0f;
+	style.TabBorderSize = 0.0f;
+
+	// Espaciado compacto: mas informacion visible por panel, como en Blender
+	style.WindowPadding = ImVec2(6, 6);
+	style.FramePadding = ImVec2(6, 4);
+	style.ItemSpacing = ImVec2(6, 4);
+	style.ItemInnerSpacing = ImVec2(4, 4);
+	style.IndentSpacing = 14.0f;
+	style.ScrollbarSize = 14.0f;
+	style.GrabMinSize = 8.0f;
+
+	const ImVec4 bgPanel = ImVec4(0.145f, 0.145f, 0.145f, 1.0f); // gris "grafito" de paneles
+	const ImVec4 bgChild = ImVec4(0.118f, 0.118f, 0.118f, 1.0f); // areas hijas, un poco mas oscuras
+	const ImVec4 bgField = ImVec4(0.090f, 0.090f, 0.090f, 1.0f); // campos/inputs, mas oscuros que el panel
+	const ImVec4 bgFieldHi = ImVec4(0.150f, 0.150f, 0.150f, 1.0f);
+	const ImVec4 widget = ImVec4(0.270f, 0.270f, 0.270f, 1.0f); // botones/controles neutros
+	const ImVec4 widgetHi = ImVec4(0.330f, 0.330f, 0.330f, 1.0f);
+	const ImVec4 widgetActive = ImVec4(0.360f, 0.360f, 0.360f, 1.0f);
+	const ImVec4 border = ImVec4(0.05f, 0.05f, 0.05f, 0.60f);
+
+	colors[ImGuiCol_Text] = ImVec4(0.92f, 0.92f, 0.92f, 1.0f);
+	colors[ImGuiCol_TextDisabled] = ImVec4(0.60f, 0.60f, 0.60f, 1.0f);
+	colors[ImGuiCol_WindowBg] = bgPanel;
+	colors[ImGuiCol_ChildBg] = bgChild;
+	colors[ImGuiCol_PopupBg] = ImVec4(0.10f, 0.10f, 0.10f, 0.98f);
+	colors[ImGuiCol_Border] = border;
+	colors[ImGuiCol_BorderShadow] = ImVec4(0, 0, 0, 0.0f);
+
+	colors[ImGuiCol_FrameBg] = bgField;
+	colors[ImGuiCol_FrameBgHovered] = bgFieldHi;
+	colors[ImGuiCol_FrameBgActive] = ImVec4(accent.x, accent.y, accent.z, 0.25f);
+
+	colors[ImGuiCol_TitleBg] = bgPanel;
+	colors[ImGuiCol_TitleBgActive] = bgPanel;
+	colors[ImGuiCol_TitleBgCollapsed] = bgChild;
+
+	colors[ImGuiCol_MenuBarBg] = bgPanel;
+
+	colors[ImGuiCol_ScrollbarBg] = bgField;
+	colors[ImGuiCol_ScrollbarGrab] = widget;
+	colors[ImGuiCol_ScrollbarGrabHovered] = widgetHi;
+	colors[ImGuiCol_ScrollbarGrabActive] = widgetActive;
+
+	// Acento unico tipo Blender (naranja de seleccion por defecto)
+	colors[ImGuiCol_CheckMark] = accent;
+	colors[ImGuiCol_SliderGrab] = ImVec4(accent.x, accent.y, accent.z, 0.85f);
+	colors[ImGuiCol_SliderGrabActive] = accent;
+
+	colors[ImGuiCol_Button] = widget;
+	colors[ImGuiCol_ButtonHovered] = widgetHi;
+	colors[ImGuiCol_ButtonActive] = widgetActive;
+
+	colors[ImGuiCol_Header] = ImVec4(accent.x, accent.y, accent.z, 0.45f);
+	colors[ImGuiCol_HeaderHovered] = ImVec4(accent.x, accent.y, accent.z, 0.65f);
+	colors[ImGuiCol_HeaderActive] = ImVec4(accent.x, accent.y, accent.z, 0.85f);
+
+	colors[ImGuiCol_Separator] = border;
+	colors[ImGuiCol_SeparatorHovered] = ImVec4(accent.x, accent.y, accent.z, 0.60f);
+	colors[ImGuiCol_SeparatorActive] = accent;
+
+	colors[ImGuiCol_Tab] = bgPanel;
+	colors[ImGuiCol_TabHovered] = widgetHi;
+	colors[ImGuiCol_TabActive] = ImVec4(accent.x * 0.35f, accent.y * 0.35f, accent.z * 0.35f, 1.0f);
+	colors[ImGuiCol_TabUnfocused] = bgChild;
+	colors[ImGuiCol_TabUnfocusedActive] = widget;
+
+	colors[ImGuiCol_DockingPreview] = ImVec4(accent.x, accent.y, accent.z, 0.45f);
+	colors[ImGuiCol_DockingEmptyBg] = bgChild;
+
+	colors[ImGuiCol_TableHeaderBg] = bgPanel;
+	colors[ImGuiCol_TableBorderStrong] = border;
+	colors[ImGuiCol_TableBorderLight] = ImVec4(1, 1, 1, 0.05f);
+	colors[ImGuiCol_TableRowBg] = ImVec4(1, 1, 1, 0.0f);
+	colors[ImGuiCol_TableRowBgAlt] = ImVec4(1, 1, 1, 0.03f);
+
+	colors[ImGuiCol_TextSelectedBg] = ImVec4(accent.x, accent.y, accent.z, 0.35f);
+	colors[ImGuiCol_NavHighlight] = accent;
+	colors[ImGuiCol_NavWindowingHighlight] = ImVec4(1, 1, 1, 0.30f);
+	colors[ImGuiCol_NavWindowingDimBg] = ImVec4(0, 0, 0, 0.30f);
+	colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0, 0, 0, 0.45f);
 }
 
 

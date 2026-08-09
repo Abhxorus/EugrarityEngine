@@ -8,7 +8,15 @@ Buffer::init(Device& device, const MeshComponent& mesh, unsigned int bindFlag) {
 		ERROR("ShaderProgram", "init", "Device is null.");
 		return E_POINTER;
 	}
-	if ((bindFlag & D3D11_BIND_VERTEX_BUFFER) && mesh.m_vertex.empty()) {
+	// BUGFIX: MeshComponent tiene dos vectores de vertices distintos:
+	// m_vertex (SimpleVertex, malla "completa" con normal/tangente/UV) y
+	// m_skyVertex (SkyboxVertex, solo posicion, usado por el cubo del Skybox).
+	// Antes esta funcion solo miraba m_vertex, asi que cualquier malla que
+	// llegara con datos unicamente en m_skyVertex (el Skybox) siempre
+	// reportaba "Vertex buffer is empty" y nunca se creaba su buffer.
+	// Si m_vertex viene vacio pero m_skyVertex no, usamos ese en su lugar.
+	const bool usingSkyVertex = mesh.m_vertex.empty() && !mesh.m_skyVertex.empty();
+	if ((bindFlag & D3D11_BIND_VERTEX_BUFFER) && mesh.m_vertex.empty() && mesh.m_skyVertex.empty()) {
 		ERROR("Buffer", "init", "Vertex buffer is empty");
 		return E_INVALIDARG;
 	}
@@ -25,10 +33,18 @@ Buffer::init(Device& device, const MeshComponent& mesh, unsigned int bindFlag) {
 	m_bindFlag = bindFlag;
 
 	if (bindFlag & D3D11_BIND_VERTEX_BUFFER) {
-		m_stride = sizeof(SimpleVertex);
-		desc.ByteWidth = m_stride * static_cast<unsigned int>(mesh.m_vertex.size());
-		desc.BindFlags = (D3D11_BIND_FLAG)bindFlag;
-		data.pSysMem = mesh.m_vertex.data();
+		if (usingSkyVertex) {
+			m_stride = sizeof(SkyboxVertex);
+			desc.ByteWidth = m_stride * static_cast<unsigned int>(mesh.m_skyVertex.size());
+			desc.BindFlags = (D3D11_BIND_FLAG)bindFlag;
+			data.pSysMem = mesh.m_skyVertex.data();
+		}
+		else {
+			m_stride = sizeof(SimpleVertex);
+			desc.ByteWidth = m_stride * static_cast<unsigned int>(mesh.m_vertex.size());
+			desc.BindFlags = (D3D11_BIND_FLAG)bindFlag;
+			data.pSysMem = mesh.m_vertex.data();
+		}
 	}
 	else if (bindFlag & D3D11_BIND_INDEX_BUFFER) {
 		m_stride = sizeof(unsigned int);

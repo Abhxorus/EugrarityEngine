@@ -188,11 +188,15 @@
     <ClCompile Include="Source\RenderTargetView.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\AudioManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="EugrarityEngine.fx">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -410,6 +414,12 @@
     </ClInclude>
     <ClInclude Include="Include\ECS\MeshRendererComponent.h">
       <Filter>Include\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\ECS\AudioSourceComponent.h">
+      <Filter>Include\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\AudioManager.h">
+      <Filter>Include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

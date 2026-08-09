@@ -72,6 +72,11 @@ public:
     void
         appleLiquidStyle(float opacity /*0..1f*/, ImVec4 accent /*=#0A84FF*/);
 
+    // Tema plano y compacto inspirado en Blender (paneles grafito opacos,
+    // esquinas rectas, acento naranja de seleccion por defecto).
+    void
+        blenderStyle(ImVec4 accent = ImVec4(0.90f, 0.45f, 0.10f, 1.0f));
+
     void
         vec3Control(const std::string& label,
             float* values,

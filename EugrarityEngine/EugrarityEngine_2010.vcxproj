@@ -432,6 +432,7 @@
     <ClCompile Include="Imgui\imgui-docking\imgui_widgets.cpp" />
     <ClCompile Include="Imgui\ImGuizmo\ImGuizmo.cpp" />
     <ClCompile Include="Include\Rendering\DeferredRenderer.cpp" />
+    <ClCompile Include="Source\AudioManager.cpp" />
     <ClCompile Include="Source\BaseApp.cpp" />
     <ClCompile Include="Source\Buffer.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
@@ -461,6 +462,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="EugrarityEngine.fx" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Imgui\imgui-docking\backends\imgui_impl_dx11.h" />
@@ -472,6 +474,7 @@
     <ClInclude Include="Imgui\imgui-docking\imstb_textedit.h" />
     <ClInclude Include="Imgui\imgui-docking\imstb_truetype.h" />
     <ClInclude Include="Imgui\ImGuizmo\ImGuizmo.h" />
+    <ClInclude Include="Include\AudioManager.h" />
     <ClInclude Include="Include\BaseApp.h" />
     <ClInclude Include="Include\Buffer.h" />
     <ClInclude Include="Include\DepthStencilState.h" />
@@ -479,6 +482,7 @@
     <ClInclude Include="Include\Device.h" />
     <ClInclude Include="Include\DeviceContext.h" />
     <ClInclude Include="Include\ECS\Actor.h" />
+    <ClInclude Include="Include\ECS\AudioSourceComponent.h" />
     <ClInclude Include="Include\ECS\Component.h" />
     <ClInclude Include="Include\ECS\Entity.h" />
     <ClInclude Include="Include\ECS\LightComponent.h" />
@@ -541,5 +545,13 @@
   <ItemGroup>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="packages\directxtk_desktop_win10.2026.5.8.1\build\native\directxtk_desktop_win10.targets" Condition="Exists('packages\directxtk_desktop_win10.2026.5.8.1\build\native\directxtk_desktop_win10.targets')" />
+  </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\directxtk_desktop_win10.2026.5.8.1\build\native\directxtk_desktop_win10.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\directxtk_desktop_win10.2026.5.8.1\build\native\directxtk_desktop_win10.targets'))" />
+  </Target>
 </Project>

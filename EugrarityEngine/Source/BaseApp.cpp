@@ -5,6 +5,8 @@
  */
 #include "BaseApp.h"
 #include "ResourceManager.h"
+#include "AudioManager.h"
+#include "ECS/AudioSourceComponent.h"
 #include <algorithm>
 #include <cctype>
 #include <fstream>
@@ -100,6 +102,8 @@ BaseApp::run(HINSTANCE hInst, int nCmdShow) {
 HRESULT
 BaseApp::init() {
 	HRESULT hr = S_OK;
+
+	AudioManager::init();
 
 	// Crear swapchain
 	hr = m_swapChain.init(m_device, m_deviceContext, m_backBuffer, m_window);
@@ -611,6 +615,9 @@ BaseApp::init() {
 	meshRenderer->setMaterialInstance(&m_cyberGunMaterial);
 	meshRenderer->setVisible(true);
 	meshRenderer->setCastShadow(true);
+
+	EU::TSharedPointer<AudioSourceComponent> audioComponent = EU::MakeShared<AudioSourceComponent>();
+	m_cyberGun->addComponent(audioComponent);
 	/*
 	EU::TSharedPointer<MeshRendererComponent> drakefireMeshRenderer = m_drakefirePistol->getComponent<MeshRendererComponent>();
 	if (!drakefireMeshRenderer) {
@@ -774,6 +781,8 @@ BaseApp::update(float deltaTime) {
 	// Update Actors
 	m_sceneGraph.update(deltaTime, m_deviceContext);
 
+	AudioManager::update();
+
 }
 
 void
@@ -858,6 +867,7 @@ BaseApp::destroy() {
 	m_toadModel = nullptr;
 	m_deviceContext.destroy();
 	m_device.destroy();
+	AudioManager::destroy();
 }
 
 LRESULT

@@ -93,5 +93,12 @@ private:
     EU::Vector3 scale;     // Escala del objeto
 
 public:
-    XMMATRIX matrix;    // Matriz de transformación
+    XMMATRIX matrix;    // Matriz de transformación LOCAL (S*R*T)
+    // Matriz de transformación en espacio de mundo (Local * ParentWorld),
+    // calculada por SceneGraph::updateWorldRecursive cada frame. Para un
+    // actor raiz (sin padre) es igual a `matrix`, pero para un hijo dentro
+    // de una jerarquia ya incluye la transformación acumulada de sus padres.
+    // El renderer (gatherRenderScene) debe leer SIEMPRE de aqui, no de
+    // `matrix`, para que mover/rotar/escalar un padre afecte a sus hijos.
+    XMMATRIX worldMatrix = XMMatrixIdentity();
 };

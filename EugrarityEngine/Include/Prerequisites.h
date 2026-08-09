@@ -128,5 +128,6 @@ enum
     TRANSFORM = 1,///< Componente de transformaci�n.
     MESH = 2,     ///< Componente de malla.
     MATERIAL = 3,  ///< Componente de material.
-    HIERARCHY = 4 ///< Componente de jerarqu�a.
+    HIERARCHY = 4, ///< Componente de jerarqu�a.
+    AUDIO = 5
 };

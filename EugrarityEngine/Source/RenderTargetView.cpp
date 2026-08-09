@@ -23,7 +23,21 @@ RenderTargetView::init(Device& device, Texture& backBuffer, DXGI_FORMAT Format) 
 	D3D11_RENDER_TARGET_VIEW_DESC desc;
 	memset(&desc, 0, sizeof(desc));
 	desc.Format = Format;
-	desc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2DMS;
+	// BUGFIX: antes se forzaba TEXTURE2DMS sin importar si el recurso
+	// realmente tenia multisampling. Si el backbuffer/textura se crea con
+	// SampleDesc.Count == 1 (lo habitual) y aqui se pide una vista MS,
+	// hay un mismatch de "sample count" entre RTV y DSV que D3D11 rechaza
+	// en tiempo de bind (OMSetRenderTargets), incluso si CreateRenderTargetView
+	// no marca error. Detectamos el sample count real del recurso y
+	// elegimos la dimension correcta dinamicamente.
+	D3D11_TEXTURE2D_DESC texDesc{};
+	backBuffer.m_texture->GetDesc(&texDesc);
+	desc.ViewDimension = (texDesc.SampleDesc.Count > 1)
+		? D3D11_RTV_DIMENSION_TEXTURE2DMS
+		: D3D11_RTV_DIMENSION_TEXTURE2D;
+	if (desc.ViewDimension == D3D11_RTV_DIMENSION_TEXTURE2D) {
+		desc.Texture2D.MipSlice = 0;
+	}
 
 	// Create the render target view
 	HRESULT hr = device.m_device->CreateRenderTargetView(backBuffer.m_texture,

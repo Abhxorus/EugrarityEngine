@@ -234,6 +234,17 @@ Model3D::LoadFBXModel(const std::string& filePath) {
 					(!assetRoot->GetNodeAttribute() ||
 						assetRoot->GetNodeAttribute()->GetAttributeType() != FbxNodeAttribute::eMesh)) {
 					m_fbxModelRootInverse = assetRoot->EvaluateGlobalTransform().Inverse();
+					// BUGFIX: no cancelar la escala del nodo contenedor (assetRoot).
+					// FbxSystemUnit::m.ConvertScene() (arriba) compensa la conversion de
+					// unidades (p.ej. cm -> m) insertando una escala en la jerarquia por
+					// encima de assetRoot; EvaluateGlobalTransform() la hereda, y al
+					// invertir la matriz completa aqui, esa escala legitima se cancelaba
+					// junto con la rotacion/traslacion del contenedor que si queremos
+					// anular. Resultado observado: el modelo importado renderizaba ~100x
+					// mas grande de lo real (unidades de archivo sin convertir). Forzamos
+					// la escala del inverso a (1,1,1) para conservar unicamente la
+					// correccion de rotacion/traslacion del contenedor.
+					m_fbxModelRootInverse.SetS(FbxVector4(1.0, 1.0, 1.0, 1.0));
 				}
 			}
 			for (int i = 0; i < lRootNode->GetChildCount(); i++) {
