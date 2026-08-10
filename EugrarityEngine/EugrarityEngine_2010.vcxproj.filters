@@ -191,6 +191,12 @@
     <ClCompile Include="Source\AudioManager.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ECS\AudioSourceComponent.cpp">
+      <Filter>Source\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PlatformUtils.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="EugrarityEngine.fx">
@@ -420,6 +426,9 @@
     </ClInclude>
     <ClInclude Include="Include\AudioManager.h">
       <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\EngineUtilities\Utilities\PlatformUtils.h">
+      <Filter>Include\EngineUtilities\Utilities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

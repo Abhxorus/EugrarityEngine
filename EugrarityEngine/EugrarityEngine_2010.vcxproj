@@ -441,10 +441,12 @@
     <ClCompile Include="Source\Device.cpp" />
     <ClCompile Include="Source\DeviceContext.cpp" />
     <ClCompile Include="Source\ECS\Actor.cpp" />
+    <ClCompile Include="Source\ECS\AudioSourceComponent.cpp" />
     <ClCompile Include="Source\EditorViewportPass.cpp" />
     <ClCompile Include="Source\GUI\GUI.cpp" />
     <ClCompile Include="Source\InputLayout.cpp" />
     <ClCompile Include="Source\Model3D.cpp" />
+    <ClCompile Include="Source\PlatformUtils.cpp" />
     <ClCompile Include="Source\RasterizerState.cpp" />
     <ClCompile Include="Source\Rendering\ForwardRenderer.cpp" />
     <ClCompile Include="Source\Rendering\MaterialInstance.cpp" />
@@ -504,6 +506,7 @@
     <ClInclude Include="Include\EngineUtilities\Utilities\EditorViewportPass.h" />
     <ClInclude Include="Include\EngineUtilities\Utilities\EngineMath.h" />
     <ClInclude Include="Include\EngineUtilities\Utilities\LayoutBuilder.h" />
+    <ClInclude Include="Include\EngineUtilities\Utilities\PlatformUtils.h" />
     <ClInclude Include="Include\EngineUtilities\Utilities\Skybox.h" />
     <ClInclude Include="Include\EngineUtilities\Vectors\Quaternion.h" />
     <ClInclude Include="Include\EngineUtilities\Vectors\Vector2.h" />
